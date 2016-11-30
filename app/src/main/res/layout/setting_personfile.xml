@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="this is a setting layout"-->
+    <!--/>-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F0F3F6"
+    >
+
+
+    <LinearLayout style="@style/wrap_layout" >
+        <!-- 上圆角-->
+        <LinearLayout style="@style/top_layout">
+            <TextView style="@style/usertext" android:text="昵称" />
+            <!--<ImageView style="@style/img_arrow"/>-->
+            <TextView style="@style/usertext" android:text="admin"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- 分割线 -->
+        <View style="@style/bg_line"/>
+        <!-- 无圆角-->
+        <LinearLayout style="@style/mid_layout">
+            <TextView style="@style/usertext" android:text="性别" />
+            <!--<ImageView style="@style/img_arrow"/>-->
+            <TextView style="@style/usertext" android:text="男"
+                android:gravity="center"/>
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <!-- 无圆角-->
+        <LinearLayout style="@style/mid_layout">
+            <TextView style="@style/usertext" android:text="个性签名" />
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <!-- 无圆角-->
+        <LinearLayout style="@style/mid_layout">
+            <TextView style="@style/usertext" android:text="个人简介" />
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <!-- 无圆角-->
+        <LinearLayout style="@style/mid_layout">
+            <TextView style="@style/usertext" android:text="居住地" />
+            <!--<ImageView style="@style/img_arrow"/>-->
+            <TextView style="@style/usertext" android:text="湖北 武汉"
+                android:gravity="center"/>
+
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <!-- 无圆角-->
+        <LinearLayout style="@style/mid_layout">
+            <TextView style="@style/usertext" android:text="擅长学科" />
+            <!--<ImageView style="@style/img_arrow"/>-->
+            <TextView style="@style/usertext" android:text="语文 数学"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+        <View style="@style/bg_line"/>
+        <!-- 下圆角-->
+        <LinearLayout style="@style/bottom_layout">
+            <TextView style="@style/usertext" android:text="所属大学" />
+            <!--<ImageView style="@style/img_arrow"/>-->
+            <TextView style="@style/usertext" android:text="whu"
+                android:gravity="center" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!-- 全圆角-->
+    <LinearLayout style="@style/wrap_layout">
+        <LinearLayout style="@style/single_layout">
+            <TextView style="@style/usertext" android:text="others。。。"/>
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+
