@@ -16,7 +16,7 @@
 
     <LinearLayout style="@style/wrap_layout" >
         <!-- 上圆角-->
-        <LinearLayout style="@style/top_layout">
+        <LinearLayout style="@style/top_layout" android:id="@+id/id_setting_personalizesignature">
             <TextView style="@style/usertext" android:text="个性签名" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>

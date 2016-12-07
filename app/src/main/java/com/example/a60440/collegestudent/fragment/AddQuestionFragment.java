@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.activity.MainActivity;
 import com.example.a60440.collegestudent.requestServes.AddQuestionRequestServes;
 
 import retrofit2.Call;
@@ -38,10 +39,17 @@ public class AddQuestionFragment extends Fragment {
     private void initView(View v) {
         questionEdit = (EditText)v.findViewById(R.id.id_EditText_AddQuestion);
         submitButton = (Button)v.findViewById(R.id.id_Button_submit_question);
+        if(getActivity() instanceof  MainActivity){
+            MainActivity activity = (MainActivity)getActivity();
+        }
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Submit();
+                if(getActivity() instanceof  MainActivity){
+                    MainActivity activity = (MainActivity)getActivity();
+                    activity.setSelect(0);
+                }
             }
         });
 

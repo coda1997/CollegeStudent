@@ -32,6 +32,8 @@ public class SettingMainFragment extends Fragment implements View.OnClickListene
     private void InitView(View v) {
         personFileLinerLayout = (LinearLayout)v.findViewById(R.id.id_setting_personfile);
         personFileLinerLayout.setOnClickListener(this);
+        personSignLinerLayout=(LinearLayout)v.findViewById(R.id.id_setting_personalizesignature);
+        personSignLinerLayout.setOnClickListener(this);
     }
 
     @Override
@@ -41,7 +43,10 @@ public class SettingMainFragment extends Fragment implements View.OnClickListene
             activity = (SettingActivity) getActivity();
             if(id==R.id.id_setting_personfile){
                 activity.setSelect(1);
+            }else if(id==R.id.id_setting_personalizesignature){
+                activity.setSelect(0);
             }
+
             //add other fragment select;
         }
     }

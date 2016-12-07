@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.fragment.SettingMainFragment;
 import com.example.a60440.collegestudent.fragment.SettingPeronFileFragment;
+import com.example.a60440.collegestudent.fragment.SettingPersonalizeSignature;
 
 import static android.view.KeyEvent.KEYCODE_BACK;
 
@@ -26,10 +27,10 @@ import static android.view.KeyEvent.KEYCODE_BACK;
 
 public class SettingActivity extends AppCompatActivity{
     private Fragment mSettingMain;
-    private Fragment mSign;
     private Fragment mPersongfile;
     private Fragment mNotification;
     private Fragment mSideFunction;
+    private Fragment mSettingPersionalizeSignature;
     private int currentFragmentId = 0;
     private int currentFragment = -1;
     @Override
@@ -51,11 +52,12 @@ public class SettingActivity extends AppCompatActivity{
         FragmentTransaction transaction = fm.beginTransaction();
         hideFragment(transaction);
         if(i==0){
-            currentFragmentId=1;
-            if(mSign==null){
-
+            currentFragment=1;
+            if(mSettingPersionalizeSignature==null){
+                mSettingPersionalizeSignature=new SettingPersonalizeSignature();
+                transaction.add(R.id.id__setting_container,mSettingPersionalizeSignature);
             }else{
-
+                transaction.show(mSettingPersionalizeSignature);
             }
         }else if(i==1){
             currentFragmentId=1;
@@ -92,8 +94,6 @@ public class SettingActivity extends AppCompatActivity{
     }
 
     private void hideFragment(FragmentTransaction transaction) {
-        if(mSign!=null)
-            transaction.hide(mSign);
         if(mPersongfile!=null)
             transaction.hide(mPersongfile);
         if(mNotification!=null)
@@ -102,6 +102,8 @@ public class SettingActivity extends AppCompatActivity{
             transaction.hide(mSideFunction);
         if(mSettingMain!=null)
             transaction.hide(mSettingMain);
+        if(mSettingPersionalizeSignature!=null)
+            transaction.hide(mSettingPersionalizeSignature);
     }
 
     @Override
