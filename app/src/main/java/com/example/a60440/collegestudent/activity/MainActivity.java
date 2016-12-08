@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity
 
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings||id==R.id.id_video_setting||id==R.id.chatting_settings) {
             Intent intent = new Intent(MainActivity.this,SettingActivity.class);
             intent.putExtra("currentFrament",-1);
             startActivity(intent);
@@ -143,13 +143,12 @@ public class MainActivity extends AppCompatActivity
             return true;
         }else if(id==R.id.id_video_adding){
             return true;
-        }else if(id==R.id.id_video_setting){
-            Intent intent = new Intent(MainActivity.this,SettingActivity.class);
-            intent.putExtra("currentFrament",-1);
-            startActivity(intent);
-            return true;
         }else if(id==R.id.id_video_sharing){
             return true;
+        }else if(id==R.id.chatting_adding_friends){
+
+        }else if(id==R.id.chatting_adding_class){
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -271,6 +270,8 @@ public class MainActivity extends AppCompatActivity
                     transaction.show(mTab03);
                 }
                 //this can put a image pressed
+                toolbar.getMenu().clear();
+                toolbar.inflateMenu(R.menu.main_friend);
                 break;
             case 3:
                 if(mTabAdd==null){

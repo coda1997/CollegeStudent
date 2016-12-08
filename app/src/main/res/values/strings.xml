@@ -29,6 +29,8 @@
     <string name="vedio_add">去添加下载</string>
     <string name="add_question">添加问题</string>
     <string name="tv_search">搜索</string>
+    <string name="add_friend">添加朋友</string>
+    <string name="add_class">添加班级</string>
 
     <!-- Strings related to Settings -->
 

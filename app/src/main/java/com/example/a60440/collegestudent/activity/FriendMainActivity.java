@@ -13,7 +13,7 @@ public class FriendMainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.friend_chatting);
+        setContentView(R.layout.chatting_main);
         initView();
 
     }
