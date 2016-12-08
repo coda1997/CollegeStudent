@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/ijkplayer-java" />
             <option value="$PROJECT_DIR$/ijkplayer-x86" />
             <option value="$PROJECT_DIR$/ijkplayer-x86_64" />
+            <option value="$PROJECT_DIR$/qq" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

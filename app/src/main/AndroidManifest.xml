@@ -23,6 +23,7 @@
         <activity android:name=".activity.VideoActivity"></activity>
         <activity android:name=".activity.VedioManegerActivity"></activity>
         <activity android:name=".activity.QuestionContentActivity"></activity>
+        <activity android:name=".activity.FriendMainActivity"></activity>
     </application>
 
 </manifest>
