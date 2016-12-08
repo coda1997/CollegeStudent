@@ -4,7 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">设置</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -27,6 +27,7 @@
     <string name="login_defualt2">请输入密码</string>
     <string name="title_activity_settings">Settings</string>
     <string name="vedio_add">去添加下载</string>
+    <string name="add_question">添加问题</string>
 
     <!-- Strings related to Settings -->
 

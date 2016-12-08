@@ -51,11 +51,12 @@ public class MainActivity extends AppCompatActivity
     private Fragment mTabAdd;
     private Fragment mTabContent;
     private int currentFragmentId = 0;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initView();
         initEvent();
@@ -93,30 +94,30 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem item = menu.getItem(0);
-        if(item==null)
-            Log.i(TAG_2,"NULL");
-        else {
-            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    setSelect(3);
-                    return true;
-                }
-            });
-        }
-        MenuItem item_setting = menu.getItem(1);
-        if(item_setting!=null) {
-            item_setting.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    Intent intent = new Intent(MainActivity.this,SettingActivity.class);
-                    intent.putExtra("currentFrament",-1);
-                    startActivity(intent);
-                    return true;
-                }
-            });
-        }
+//        MenuItem item = menu.getItem(0);
+//        if(item==null)
+//            Log.i(TAG_2,"NULL");
+//        else {
+//            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//                @Override
+//                public boolean onMenuItemClick(MenuItem item) {
+//                    setSelect(3);
+//                    return true;
+//                }
+//            });
+//        }
+//        MenuItem item_setting = menu.getItem(1);
+//        if(item_setting!=null) {
+//            item_setting.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//                @Override
+//                public boolean onMenuItemClick(MenuItem item) {
+//                    Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+//                    intent.putExtra("currentFrament",-1);
+//                    startActivity(intent);
+//                    return true;
+//                }
+//            });
+//        }
 
         return true;
     }
@@ -131,9 +132,23 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+            intent.putExtra("currentFrament",-1);
+            startActivity(intent);
             return true;
         }else if(id == R.id.action_adding){
-
+            setSelect(3);
+            return true;
+        }else if(id==R.id.id_sharing){
+            return true;
+        }else if(id==R.id.id_video_adding){
+            return true;
+        }else if(id==R.id.id_video_setting){
+            Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+            intent.putExtra("currentFrament",-1);
+            startActivity(intent);
+            return true;
+        }else if(id==R.id.id_video_sharing){
             return true;
         }
 
@@ -221,6 +236,7 @@ public class MainActivity extends AppCompatActivity
             case 0:
                 if(mTab01==null){
                     mTab01 = new QuestionFragment();
+
                     currentFragmentId = 0;
                     transaction.add(R.id.id_content,mTab01);
 
@@ -229,6 +245,8 @@ public class MainActivity extends AppCompatActivity
                     transaction.show(mTab01);
                 }
                 //this can put a image pressed
+                toolbar.getMenu().clear();
+                toolbar.inflateMenu(R.menu.main);
                 break;
             case 1:
                 if(mTab02==null){
@@ -240,6 +258,8 @@ public class MainActivity extends AppCompatActivity
                     transaction.show(mTab02);
                 }
                 //this can put a image pressed
+                toolbar.getMenu().clear();
+                toolbar.inflateMenu(R.menu.main_video);
                 break;
             case 2:
                 if(mTab03==null){
@@ -266,11 +286,14 @@ public class MainActivity extends AppCompatActivity
                 if(mTabContent==null){
                     currentFragmentId = 4;
                     mTabContent= new QuestionContent();
+
                     transaction.add(R.id.id_content,mTabContent);
                 }else{
                     currentFragmentId = 4;
                     transaction.show(mTabContent);
                 }
+                toolbar.getMenu().clear();
+                toolbar.inflateMenu(R.menu.main_question);
                 break;
             default:break;
         }

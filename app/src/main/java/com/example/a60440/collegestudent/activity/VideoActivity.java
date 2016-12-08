@@ -23,4 +23,5 @@ public class VideoActivity extends Activity {
         videoView = (VideoView)findViewById(R.id.id_videoView_main);
 
     }
+
 }
