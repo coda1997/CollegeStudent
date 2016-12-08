@@ -31,18 +31,7 @@ dependencies {
     //ConverterFactory的Gson依赖包
     //    compile 'com.squareup.retrofit2:converter-scalars:2.1.0'//ConverterFactory的String依赖包
     // required, enough for most devices.
-    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.7.5'
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.7.5'
 
-    // Other ABIs: optional
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.7.5'
-    compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.7.5'
-    compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.7.5'
-    compile 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.7.5'
-
-    // ExoPlayer as IMediaPlayer: optional, experimental
-    compile 'tv.danmaku.ijk.media:ijkplayer-exo:0.7.5'
-    compile 'com.getbase:floatingactionbutton:1.10.1'
 
 
 
