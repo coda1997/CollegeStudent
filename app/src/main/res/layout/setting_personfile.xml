@@ -19,7 +19,7 @@
         <LinearLayout style="@style/top_layout">
             <TextView style="@style/usertext" android:text="昵称" />
             <!--<ImageView style="@style/img_arrow"/>-->
-            <TextView style="@style/usertext" android:text="admin"
+            <TextView style="@style/usertext" android:text="江一航"
                 android:gravity="center"/>
         </LinearLayout>
 
@@ -69,7 +69,7 @@
         <LinearLayout style="@style/bottom_layout">
             <TextView style="@style/usertext" android:text="所属大学" />
             <!--<ImageView style="@style/img_arrow"/>-->
-            <TextView style="@style/usertext" android:text="whu"
+            <TextView style="@style/usertext" android:text="武汉大学"
                 android:gravity="center" />
         </LinearLayout>
 
@@ -79,7 +79,7 @@
     <!-- 全圆角-->
     <LinearLayout style="@style/wrap_layout">
         <LinearLayout style="@style/single_layout">
-            <TextView style="@style/usertext" android:text="others。。。"/>
+            <TextView style="@style/usertext" android:text="其它设置"/>
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
 

@@ -21,12 +21,14 @@ import java.util.ArrayList;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.NormalHolder> {
     private ArrayList<String> items;
+    private ArrayList<Integer> imageIds;
     private Context context;
     private MyItemClickListener myItemClickListener;
     private CardView cardView;
 
-    public VideoListAdapter(ArrayList<String> items,Context context){
+    public VideoListAdapter(ArrayList<String> items,ArrayList<Integer> imageIds,Context context){
         this.items=items;
+        this.imageIds=imageIds;
         this.context=context;
     }
 
@@ -35,6 +37,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Norm
         if(holder instanceof NormalHolder){
             NormalHolder normalHolder = (NormalHolder)holder;
             normalHolder.textView.setText(items.get(position));
+            normalHolder.imageView.setImageResource(imageIds.get(position));
         }
 
     }
@@ -60,6 +63,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Norm
         public NormalHolder(View itemView, MyItemClickListener listener) {
             super(itemView);
             textView = (TextView)itemView.findViewById(R.id.base_swipe_item_title2);
+            imageView=(ImageView)itemView.findViewById(R.id.id_video_iamge);
             itemView.setOnClickListener(this);
         }
 

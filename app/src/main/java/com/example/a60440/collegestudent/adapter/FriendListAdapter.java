@@ -20,14 +20,18 @@ import java.util.ArrayList;
 
 public class FriendListAdapter extends RecyclerView.Adapter {
     private ArrayList<String> items;
-    private int[] ImageItems;
+    private ArrayList<String> times;
+    private ArrayList<String> userNames;
+    private ArrayList<Integer> ImageItems;
     private Context context;
     private MyItemClickListener myItemClickListener;
     private CardView cardView;
 
-    public FriendListAdapter(ArrayList<String> items,int[] imageItems,Context context) {
+    public FriendListAdapter(ArrayList<String> items,ArrayList<Integer> imageItems,ArrayList<String> times,ArrayList<String> userNames,Context context) {
         this.items=items;
         this.context=context;
+        this.times=times;
+        this.userNames=userNames;
         this.ImageItems=imageItems;
     }
 
@@ -35,8 +39,10 @@ public class FriendListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof FriendListHodler){
             FriendListHodler friendListHodler = (FriendListHodler)holder;
+            friendListHodler.time.setText(times.get(position));
+            friendListHodler.userName.setText(userNames.get(position));
             friendListHodler.textView.setText(items.get(position));
-            friendListHodler.imageView.setImageResource(ImageItems[position]);
+            friendListHodler.imageView.setImageResource(ImageItems.get(position));
         }
     }
 
@@ -58,11 +64,16 @@ public class FriendListAdapter extends RecyclerView.Adapter {
     class FriendListHodler extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView textView;
         ImageView imageView;
+        TextView userName;
+        TextView time;
+
 
         public FriendListHodler(View itemView,MyItemClickListener listener) {
             super(itemView);
-            textView = (TextView)itemView.findViewById(R.id.base_swipe_item_title3);
+            userName = (TextView)itemView.findViewById(R.id.base_swipe_item_title3);
             imageView = (ImageView)itemView.findViewById(R.id.base_swipe_item_imag3);
+            time = (TextView)itemView.findViewById(R.id.id_friend_time);
+            textView=(TextView)itemView.findViewById(R.id.id_friend_content);
             itemView.setOnClickListener(this);
         }
 
