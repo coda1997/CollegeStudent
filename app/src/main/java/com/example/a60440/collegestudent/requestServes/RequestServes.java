@@ -9,7 +9,7 @@ import retrofit2.http.Query;
  */
 
 public interface RequestServes {
-    @POST("/servlet/LoginServlet")
-    Call<String> getString(@Query("loginname") String loginname,@Query("loginpwd") String loginpwd);
+    @POST("servlet/LoginServlet")
+    Call<String> getString(@Query("username") String loginname,@Query("password") String loginpwd);
 
 }

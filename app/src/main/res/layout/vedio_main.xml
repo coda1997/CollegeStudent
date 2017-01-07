@@ -54,7 +54,7 @@
             android:layout_alignBottom="@+id/cl_video"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:background="#eee">
+            android:background="#000">
         <!--android:background="@color/video_controller_background"-->
 
             <ImageButton
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_ondemand_video_blue_500_24dp"/>
+                android:src="@drawable/ic_fullscreen_white_24dp"/>
         </LinearLayout>
     </RelativeLayout>
 

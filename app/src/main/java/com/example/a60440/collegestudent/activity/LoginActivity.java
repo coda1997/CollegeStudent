@@ -115,7 +115,7 @@ public class LoginActivity extends Activity {
 
     private void InitLogin(String username,String userpwd) {
         Retrofit retorfit = new Retrofit.Builder()
-                .baseUrl("http://localhost:11112/Demo1/")
+                .baseUrl("http://localhost:11111/Demo1/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
