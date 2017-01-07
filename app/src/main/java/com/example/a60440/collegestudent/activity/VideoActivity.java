@@ -86,7 +86,7 @@ public class VideoActivity extends AppCompatActivity{
         private GestureDetector mGestureDetector;
         private Timer timer = new Timer();
         private TimerTask task;
-        private String vedioUrl;
+        private String vedioUrl="";
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -100,8 +100,8 @@ public class VideoActivity extends AppCompatActivity{
             Intent intent = getIntent();
             final String name = intent.getStringExtra("name");
 //            getSource(name);
-            vedioUrl="http://60.205.190.45:8080/education/video/"+name+".mp4";
-            playVideo(vedioUrl);
+            vedioUrl="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+            //playVideo(vedioUrl);
         }
 //        private void getSource(String name){
 //            Retrofit retorfit= new Retrofit.Builder()
@@ -258,12 +258,12 @@ public class VideoActivity extends AppCompatActivity{
             params.width = metrics.widthPixels;
             params.height = params.width * metrics.widthPixels / metrics.heightPixels;
             clVideo.setLayoutParams(params);
-            if (intent != null) {
-                if (intent.getData() != null) {
-                    mVideoView.setVideoURI(intent.getData());
-                }
-            }
-            mVideoView.setVideoPath("http://www.modrails.com/videos/passenger_nginx.mov");
+//            if (intent != null) {
+//                if (intent.getData() != null) {
+//                    mVideoView.setVideoURI(intent.getData());
+//                }
+//            }
+            mVideoView.setVideoPath("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
             mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
@@ -294,6 +294,7 @@ public class VideoActivity extends AppCompatActivity{
 
         @OnClick({R.id.ib_play, R.id.ib_full})
         public void onClick(View view) {
+            Log.i("play",mVideoView.isPlaying()==false?"false":"true");
             switch (view.getId()) {
                 case R.id.ib_play:
                     if (mVideoView.isPlaying()) {

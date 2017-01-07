@@ -52,11 +52,11 @@ public class ChattingActivity extends Activity implements View.OnClickListener{
         mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
     }
 
-    private String[] msgArray = new String[] {  "OK,搞起！！" };
+    private String[] msgArray = new String[] {  "OK,搞起！！" ,"差点没钱请我吃饭","我什么时候说要请你吃饭","现在","哦哦"};
 
     private String[] dataArray = new String[] {
-            "2012-09-22 18:57:33", };
-    private final static int COUNT = 1;// 初始化数组总数
+            "2017-01-07 18:57:33", "2017-01-07 18:56:32","2017-01-07 18:56:32","2017-01-07 18:56:32","2017-01-07 18:56:32"};
+    private final static int COUNT = 5;// 初始化数组总数
 
     /**
      * 模拟加载消息历史，实际开发可以从数据库中读出
