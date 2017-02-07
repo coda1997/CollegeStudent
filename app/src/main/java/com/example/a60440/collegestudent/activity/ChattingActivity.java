@@ -17,40 +17,40 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by 60440 on 2016/12/8.
  */
 
-public class ChattingActivity extends Activity implements View.OnClickListener{
-    private Button mBtnSend;// 发送btn
-    private ImageView mBtnBack;// 返回btn
-
-    private EditText mEditTextContent;
-    private ListView mListView;
+public class ChattingActivity extends Activity{
     private ChatMsgViewAdapter mAdapter;// 消息视图的Adapter
+    @Bind(R.id.listview)
+    ListView mListView;
+    @OnClick(R.id.btn_send)
+    void setOnClickListener(){
+        send();
+    }
+    @OnClick(R.id.id_chatting_imag_back)
+    void setmBtnBackOnclick(){
+        finish();
+    }
+    @Bind(R.id.et_sendmessage)
+    EditText mEditTextContent;
+
     private List<ChatMsgEntity> mDataArrays = new ArrayList<ChatMsgEntity>();// 消息对象数组
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatting_main);
-
-        initView();// 初始化view
-
+        ButterKnife.bind(this);
         initData();// 初始化数据
         mListView.setSelection(mAdapter.getCount() - 1);
     }
 
-    /**
-     * 初始化view
-     */
-    public void initView() {
-        mListView = (ListView) findViewById(R.id.listview);
-        mBtnSend = (Button) findViewById(R.id.btn_send);
-        mBtnSend.setOnClickListener(this);
-        mBtnBack = (ImageView) findViewById(R.id.id_chatting_imag_back);
-        mBtnBack.setOnClickListener(this);
-        mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
-    }
+
 
     private String[] msgArray = new String[] {  "OK,搞起！！" ,"差点没钱请我吃饭","我什么时候说要请你吃饭","现在","哦哦"};
 
@@ -78,18 +78,6 @@ public class ChattingActivity extends Activity implements View.OnClickListener{
 
         mAdapter = new ChatMsgViewAdapter(this, mDataArrays);
         mListView.setAdapter(mAdapter);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_send:// 发送按钮点击事件
-                send();
-                break;
-            case R.id.id_chatting_imag_back:// 返回按钮点击事件
-                finish();// 结束,实际开发中，可以返回主界面
-                break;
-        }
     }
 
     /**

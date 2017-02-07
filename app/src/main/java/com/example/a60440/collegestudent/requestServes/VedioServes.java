@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface VedioServes {
-    @POST("vedio")
+    @POST("servlet/vedio")
     Call<String> getString(@Query("name") String vedioName);
 
 }

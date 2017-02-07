@@ -9,6 +9,6 @@ import retrofit2.http.Query;
  */
 
 public interface RegisterServes {
-    @POST("servlet/Register")
+    @POST("servlet/SignupServlet")
     Call<String> getString(@Query("username") String username, @Query("userpwd") String userpwd);
 }

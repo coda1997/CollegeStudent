@@ -9,6 +9,6 @@ import retrofit2.http.Query;
  */
 
 public interface QuestionRequestServes {
-    @POST("/servlet/Question")
+    @POST("servlet/Question")
     Call<String> getString(@Query("questionId") String quertionId);
 }

@@ -100,32 +100,10 @@ public class VideoActivity extends AppCompatActivity{
             Intent intent = getIntent();
             final String name = intent.getStringExtra("name");
 //            getSource(name);
-            vedioUrl="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+            vedioUrl="http://cn-jsks1-dx.acgvideo.com/vg14/9/03/11734397-1-hd.mp4?expires=1483851000&ssig=p4LJzjbOFGnkIkWnGdIHWw&oi=993498066&nfa=MUKyIyydbjs5cQe1kXiVCw==&dynamic=1";
             //playVideo(vedioUrl);
         }
-//        private void getSource(String name){
-//            Retrofit retorfit= new Retrofit.Builder()
-//                    .baseUrl("http://60.205.190.45:8080/education/")
-//                    .addConverterFactory(ScalarsConverterFactory.create())
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .build();
-//            VedioServes requestServes = retorfit.create(VedioServes.class);
-//            Call<String> call = requestServes.getString(name);
-//            call.enqueue(new Callback<String>() {
-//                @Override
-//                public void onResponse(Call<String> call, Response<String> response) {
-//                    Log.e("==","return:"+response.body().toString());
-//                }
-//
-//                @Override
-//                public void onFailure(Call<String> call, Throwable t) {
-//                    Log.e("===","fail");
-//                }
-//            });
-//
-//
-//
-//        }
+
         public void playVideo(String url) {
             mVideoView.stopPlayback();
             mVideoView.setVideoPath(url);
@@ -263,7 +241,7 @@ public class VideoActivity extends AppCompatActivity{
 //                    mVideoView.setVideoURI(intent.getData());
 //                }
 //            }
-            mVideoView.setVideoPath("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
+            mVideoView.setVideoPath("http://cn-jsks1-dx.acgvideo.com/vg14/9/03/11734397-1-hd.mp4?expires=1483851000&ssig=p4LJzjbOFGnkIkWnGdIHWw&oi=993498066&nfa=MUKyIyydbjs5cQe1kXiVCw==&dynamic=1");
             mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
@@ -276,21 +254,7 @@ public class VideoActivity extends AppCompatActivity{
             });
 
         }
-//
-//        private void initData() {
-//            titles.add("课时");
-//            titles.add("讨论");
-//            titles.add("详情");
-//            titles.add("问答");
-//            fragments.add(new ChapterFragment());
-//            fragments.add(new DiscussFragment());
-//            fragments.add(new LessonDetailFragment());
-//            fragments.add(new QuestionFragment());
-//            //初始化ViewPager 和TabLayout
-//            mViewPager.setAdapter(new VideoFragmentPagerAdapter(getSupportFragmentManager(), fragments, titles));
-//            mTabLayout.setupWithViewPager(mViewPager);
-//            mViewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
-//        }
+
 
         @OnClick({R.id.ib_play, R.id.ib_full})
         public void onClick(View view) {

@@ -62,15 +62,6 @@ public class MainActivity extends AppCompatActivity
         initEvent();
         setSelect(0);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -179,10 +170,6 @@ public class MainActivity extends AppCompatActivity
             StartLoginActivity();
 
         }
-//        else if (id == R.id.nav_send) {
-//
-//
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -208,16 +195,6 @@ public class MainActivity extends AppCompatActivity
         mTabVideo = (LinearLayout)findViewById(R.id.id_tab_vedio);
         mTabFriend = (LinearLayout)findViewById(R.id.id_tab_friend);
 
-//        AddButton = (ImageButton)findViewById(R.id.id_addbutton);
-
-
-//        mImagQuestion = (ImageButton)findViewById(R.id.id_tab_quesion_img);
-//        mImagVideo = (ImageButton)findViewById(R.id.id_tab_vedio_img);
-//        mImagFriend = (ImageButton) findViewById(R.id.id_tab_friend_img);
-
-//        mTab01 = new QuestionFragment();
-//        mTab02 = new VedioFragment();
-//        mTab03 = new FriendFragment();
     }
 
     public void initEvent() {
@@ -328,11 +305,6 @@ public class MainActivity extends AppCompatActivity
             default:break;
         }
     }
-
-    //    }
-//
-//        addQues.seton
-//        MenuItem addQues = (MenuItem)findViewById(R.id.action_adding);
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode==KEYCODE_BACK&&event.getRepeatCount()==0){

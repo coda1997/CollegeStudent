@@ -14,6 +14,9 @@ import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.activity.MainActivity;
 import com.example.a60440.collegestudent.requestServes.AddQuestionRequestServes;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,38 +29,29 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 
 public class AddQuestionFragment extends Fragment {
-    private EditText questionEdit;
+//    private EditText questionEdit;
     private Button submitButton;
+    @Bind(R.id.id_EditText_AddQuestion)
+    EditText questionEdit;
+    @OnClick(R.id.id_Button_submit_question)
+    void setSubmitButton(){
+        submit();
+        if(getActivity() instanceof MainActivity){
+            ((MainActivity) getActivity()).setSelect(0);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.addquestionfragment,container,false);
-        initView(v);
-
+        ButterKnife.bind(this,v);
         return v;
     }
 
-    private void initView(View v) {
-        questionEdit = (EditText)v.findViewById(R.id.id_EditText_AddQuestion);
-        submitButton = (Button)v.findViewById(R.id.id_Button_submit_question);
-        if(getActivity() instanceof  MainActivity){
-            MainActivity activity = (MainActivity)getActivity();
-        }
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Submit();
-                if(getActivity() instanceof  MainActivity){
-                    MainActivity activity = (MainActivity)getActivity();
-                    activity.setSelect(0);
-                }
-            }
-        });
 
-    }
-
-    private void Submit() {
+    private void submit() {
         Retrofit retorfit = new Retrofit.Builder()
-                .baseUrl("http://lacalhost:11112/Demo1/")
+                .baseUrl(getResources().getString(R.string.baseURL))
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.requestServes.QuestionRequestServes;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,24 +26,20 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 
 public class QuestionContent extends Fragment {
-    private TextView questionContent;
+    @Bind(R.id.id_question_content)
+    TextView questionContent;
     private int questionId = 0;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.ques_content,container,false);
-        initView(v);
+        ButterKnife.bind(this,v);
+        getQuestion(questionId);
         return v;
     }
-
-    private void initView(View v) {
-        questionContent = (TextView)v.findViewById(R.id.id_question_content);
-        getQuestion(questionId);
-    }
-
     private void getQuestion(int questionId) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://lacalhost:11112/Demo1/")
+                .baseUrl(getResources().getString(R.string.baseURL))
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
