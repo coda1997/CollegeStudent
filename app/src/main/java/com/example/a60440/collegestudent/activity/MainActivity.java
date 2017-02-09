@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -22,11 +23,13 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.bean.User;
 import com.example.a60440.collegestudent.fragment.questionFragment.AddQuestionFragment;
 import com.example.a60440.collegestudent.fragment.FriendFragment;
 import com.example.a60440.collegestudent.fragment.questionFragment.QuestionContent;
 import com.example.a60440.collegestudent.fragment.questionFragment.QuestionFragment;
 import com.example.a60440.collegestudent.fragment.VedioFragment;
+import com.example.a60440.collegestudent.utils.UserUtils;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import static android.view.KeyEvent.KEYCODE_BACK;
@@ -49,11 +52,14 @@ public class MainActivity extends AppCompatActivity
     private int currentFragmentId = 0;
     private Toolbar toolbar;
     private MaterialSearchView searchView;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        Intent intent = this.getIntent();
+        user = (User) intent.getSerializableExtra("User");
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initEvent();
@@ -192,6 +198,8 @@ public class MainActivity extends AppCompatActivity
         mTabVideo.setOnClickListener(this);
     }
 
+
+
     public void setSelect(int i){
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
@@ -305,5 +313,13 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+    private void saveUserInfo(User user){
+        if(user==null){
+            return;
+        }else {
+            UserUtils.setParam(getApplicationContext(),user);
+        }
+
     }
 }

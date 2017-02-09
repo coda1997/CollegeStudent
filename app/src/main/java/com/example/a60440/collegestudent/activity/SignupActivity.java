@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.example.a60440.collegestudent.Manifest;
 import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.bean.User;
 import com.example.a60440.collegestudent.requestServes.RegisterServes;
 
 import butterknife.Bind;
@@ -39,9 +41,9 @@ public class SignupActivity extends Activity {
     }
     @OnClick(R.id.button4)
     void registerSubmitOnclick(){
-        InitSignup(registerName.toString(),registerpwd.toString());
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
+        InitSignup(registerName.getText().toString(),registerpwd.getText().toString());
+        Log.i("signup == ",registerName.getText().toString()+" "+registerpwd.getText().toString());
+
     }
 
     @Override
@@ -50,7 +52,7 @@ public class SignupActivity extends Activity {
         setContentView(R.layout.signup_main);
         ButterKnife.bind(this);
     }
-    private void InitSignup(String username, String userpwd) {
+    private void InitSignup(final String username, final String userpwd) {
         Retrofit retorfit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.baseURL))
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -67,6 +69,17 @@ public class SignupActivity extends Activity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.e("==","return:"+response.body().toString());
+                if(response.body().toString().equals("true")){
+                    User user = new User();
+                    user.setUsername(username);
+                    user.setPassword(userpwd);
+                    Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("User",user);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+                }
             }
         });
     }
