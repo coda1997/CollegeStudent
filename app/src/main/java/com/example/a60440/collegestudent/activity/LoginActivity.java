@@ -33,9 +33,9 @@ public class LoginActivity extends Activity{
     void loginOnClick(){
         userName = loginName.getText().toString();
         userpwd = loginpwd.getText().toString();
-        InitLogin(userName,userpwd);
-//        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-//        startActivity(intent);
+//        InitLogin(userName,userpwd);
+        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+        startActivity(intent);
     }
     @OnClick(R.id.button3)
     void registerOnClick(){
