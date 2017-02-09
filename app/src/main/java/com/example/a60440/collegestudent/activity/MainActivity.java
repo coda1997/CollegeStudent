@@ -1,10 +1,13 @@
 package com.example.a60440.collegestudent.activity;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -24,6 +27,7 @@ import com.example.a60440.collegestudent.fragment.FriendFragment;
 import com.example.a60440.collegestudent.fragment.questionFragment.QuestionContent;
 import com.example.a60440.collegestudent.fragment.questionFragment.QuestionFragment;
 import com.example.a60440.collegestudent.fragment.VedioFragment;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import static android.view.KeyEvent.KEYCODE_BACK;
 
@@ -44,13 +48,14 @@ public class MainActivity extends AppCompatActivity
     private Fragment mTabContent;
     private int currentFragmentId = 0;
     private Toolbar toolbar;
+    private MaterialSearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initView();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        initView();
         initEvent();
         setSelect(0);
 
@@ -77,30 +82,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-//        MenuItem item = menu.getItem(0);
-//        if(item==null)
-//            Log.i(TAG_2,"NULL");
-//        else {
-//            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    setSelect(3);
-//                    return true;
-//                }
-//            });
-//        }
-//        MenuItem item_setting = menu.getItem(1);
-//        if(item_setting!=null) {
-//            item_setting.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    Intent intent = new Intent(MainActivity.this,SettingActivity.class);
-//                    intent.putExtra("currentFrament",-1);
-//                    startActivity(intent);
-//                    return true;
-//                }
-//            });
-//        }
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+
 
         return true;
     }
@@ -175,7 +159,31 @@ public class MainActivity extends AppCompatActivity
         mTabQuestion = (LinearLayout)findViewById(R.id.id_tab_question);
         mTabVideo = (LinearLayout)findViewById(R.id.id_tab_vedio);
         mTabFriend = (LinearLayout)findViewById(R.id.id_tab_friend);
+        searchView=(MaterialSearchView)findViewById(R.id.id_search_view);searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Do some magic
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
     }
 
     public void initEvent() {
@@ -216,6 +224,7 @@ public class MainActivity extends AppCompatActivity
                 //this can put a image pressed
                 toolbar.getMenu().clear();
                 toolbar.inflateMenu(R.menu.main_video);
+
                 break;
             case 2:
                 if(mTab03==null){
@@ -255,6 +264,8 @@ public class MainActivity extends AppCompatActivity
                 break;
             default:break;
         }
+        searchView.setMenuItem(toolbar.getMenu().findItem(R.id.action_search));
+
         transaction.commit();
 
     }
