@@ -20,17 +20,17 @@
             android:title="设置" />
     </group>
 
-    <item android:title="登录">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="登录" />
+    <!--<item android:title="登录">-->
+        <!--<menu>-->
             <!--<item-->
-                <!--android:id="@+id/nav_send"-->
-                <!--android:icon="@drawable/ic_menu_send"-->
-                <!--android:title="Sign up" />-->
-        </menu>
-    </item>
+                <!--android:id="@+id/nav_share"-->
+                <!--android:icon="@drawable/ic_menu_share"-->
+                <!--android:title="登录" />-->
+            <!--&lt;!&ndash;<item&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/nav_send"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:icon="@drawable/ic_menu_send"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="Sign up" />&ndash;&gt;-->
+        <!--</menu>-->
+    <!--</item>-->
 
 </menu>

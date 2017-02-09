@@ -2,12 +2,9 @@ package com.example.a60440.collegestudent.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,12 +18,11 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.example.a60440.collegestudent.Manifest;
 import com.example.a60440.collegestudent.R;
-import com.example.a60440.collegestudent.fragment.AddQuestionFragment;
+import com.example.a60440.collegestudent.fragment.questionFragment.AddQuestionFragment;
 import com.example.a60440.collegestudent.fragment.FriendFragment;
-import com.example.a60440.collegestudent.fragment.QuestionContent;
-import com.example.a60440.collegestudent.fragment.QuestionFragment;
+import com.example.a60440.collegestudent.fragment.questionFragment.QuestionContent;
+import com.example.a60440.collegestudent.fragment.questionFragment.QuestionFragment;
 import com.example.a60440.collegestudent.fragment.VedioFragment;
 
 import static android.view.KeyEvent.KEYCODE_BACK;
@@ -39,10 +35,6 @@ public class MainActivity extends AppCompatActivity
     ImageButton AddButton;
     private final String TAG_2 = "OnAddClick";
 
-    //    private ImageButton mImagQuestion;
-//    private ImageButton mImagFriend;
-//    private ImageButton mImagVideo;
-//
     private Fragment mTab01;
 
     private Fragment mTab02;
@@ -120,7 +112,6 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings||id==R.id.id_video_setting||id==R.id.chatting_settings) {
             Intent intent = new Intent(MainActivity.this,SettingActivity.class);
@@ -134,7 +125,9 @@ public class MainActivity extends AppCompatActivity
             return true;
         }else if(id==R.id.id_video_adding){
             return true;
-        }else if(id==R.id.id_video_sharing){
+        }else if(id==R.id.id_video_management){
+            Intent intent = new Intent(this,VedioManegerActivity.class);
+            startActivity(intent);
             return true;
         }else if(id==R.id.chatting_adding_friends){
 
@@ -144,8 +137,6 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-//    public void onClickAddQuestion(){
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -163,11 +154,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
             Intent intent = new Intent(MainActivity.this,SettingActivity.class);
-            intent.putExtra("currentFrament",-1);
+            intent.putExtra("currentFrament",0);
             startActivity(intent);
-
-        } else if (id == R.id.nav_share) {
-            StartLoginActivity();
 
         }
 
@@ -183,13 +171,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
-    private void StartLoginActivity() {
-        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-        startActivity(intent);
-
-    }
-
     public void initView() {
         mTabQuestion = (LinearLayout)findViewById(R.id.id_tab_question);
         mTabVideo = (LinearLayout)findViewById(R.id.id_tab_vedio);
@@ -201,7 +182,6 @@ public class MainActivity extends AppCompatActivity
         mTabQuestion.setOnClickListener(this);
         mTabFriend.setOnClickListener(this);
         mTabVideo.setOnClickListener(this);
-
     }
 
     public void setSelect(int i){

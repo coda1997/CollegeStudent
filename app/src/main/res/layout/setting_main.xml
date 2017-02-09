@@ -46,6 +46,19 @@
         </LinearLayout>
 
     </LinearLayout>
+    <LinearLayout style="@style/wrap_layout"
+        >
+        <LinearLayout style="@style/single_layout"
+            android:id="@+id/id_setting_log_out"
+            >
+
+            <TextView style="@style/usertext"
+                android:text="退出当前账号"
+
+                />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
 

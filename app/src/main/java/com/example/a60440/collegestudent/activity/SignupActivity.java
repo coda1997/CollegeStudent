@@ -1,6 +1,7 @@
 package com.example.a60440.collegestudent.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.requestServes.RegisterServes;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,16 +35,20 @@ public class SignupActivity extends Activity {
         registerName.setText("");
         registerpwd.setText("");
         registerCheckpwd.setText("");
+
     }
     @OnClick(R.id.button4)
     void registerSubmitOnclick(){
         InitSignup(registerName.toString(),registerpwd.toString());
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_main);
+        ButterKnife.bind(this);
     }
     private void InitSignup(String username, String userpwd) {
         Retrofit retorfit = new Retrofit.Builder()

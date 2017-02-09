@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.listener.MyItemClickListener;
+import com.example.a60440.collegestudent.loader.NormalImageLoader;
+import com.example.a60440.collegestudent.utils.FriendsInfo;
 
 import java.util.ArrayList;
 
@@ -19,36 +21,35 @@ import java.util.ArrayList;
  */
 
 public class FriendListAdapter extends RecyclerView.Adapter {
-    private ArrayList<String> items;
-    private ArrayList<String> times;
-    private ArrayList<String> userNames;
-    private ArrayList<Integer> ImageItems;
+//    private ArrayList<String> items;
+//    private ArrayList<String> times;
+//    private ArrayList<String> userNames;
+//    private ArrayList<Integer> ImageItems;
+    private ArrayList<FriendsInfo> friends;
     private Context context;
     private MyItemClickListener myItemClickListener;
     private CardView cardView;
 
-    public FriendListAdapter(ArrayList<String> items,ArrayList<Integer> imageItems,ArrayList<String> times,ArrayList<String> userNames,Context context) {
-        this.items=items;
+    public FriendListAdapter(ArrayList<FriendsInfo> friendsInfos,Context context) {
+        friends=friendsInfos;
         this.context=context;
-        this.times=times;
-        this.userNames=userNames;
-        this.ImageItems=imageItems;
+
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof FriendListHodler){
             FriendListHodler friendListHodler = (FriendListHodler)holder;
-            friendListHodler.time.setText(times.get(position));
-            friendListHodler.userName.setText(userNames.get(position));
-            friendListHodler.textView.setText(items.get(position));
-            friendListHodler.imageView.setImageResource(ImageItems.get(position));
+            friendListHodler.time.setText(friends.get(position).itemTime);
+            friendListHodler.userName.setText(friends.get(position).userName);
+            friendListHodler.textView.setText(friends.get(position).itemTiele);
+            new NormalImageLoader().getPicture(friends.get(position).imageSrc,friendListHodler.imageView);
         }
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return friends.size();
     }
 
     @Override

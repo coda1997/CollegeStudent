@@ -14,13 +14,16 @@
             android:name=".activity.MainActivity"
             android:label="大学生端"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".activity.LoginActivity"></activity>
         <activity android:name=".activity.SettingActivity"></activity>
         <activity android:name=".activity.VideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

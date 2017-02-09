@@ -34,13 +34,15 @@
         </LinearLayout>
         <View style="@style/bg_line"/>
         <!-- 无圆角-->
-        <LinearLayout style="@style/mid_layout">
+        <LinearLayout style="@style/mid_layout"
+            android:id="@+id/id_setting_personalfile_signature">
             <TextView style="@style/usertext" android:text="个性签名" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
         <View style="@style/bg_line"/>
         <!-- 无圆角-->
-        <LinearLayout style="@style/mid_layout">
+        <LinearLayout style="@style/mid_layout"
+            android:id="@+id/id_setting_personalfile_introduction">
             <TextView style="@style/usertext" android:text="个人简介" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>

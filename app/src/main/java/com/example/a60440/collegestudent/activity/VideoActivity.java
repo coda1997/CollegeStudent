@@ -1,6 +1,5 @@
 package com.example.a60440.collegestudent.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -24,9 +23,6 @@ import android.widget.TextView;
 
 
 import com.example.a60440.collegestudent.R;
-import com.example.a60440.collegestudent.fragment.QuestionFragment;
-import com.example.a60440.collegestudent.requestServes.RequestServes;
-import com.example.a60440.collegestudent.requestServes.VedioServes;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,12 +37,6 @@ import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.CenterLayout;
 import io.vov.vitamio.widget.VideoView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class VideoActivity extends AppCompatActivity{
 
@@ -101,7 +91,7 @@ public class VideoActivity extends AppCompatActivity{
             final String name = intent.getStringExtra("name");
 //            getSource(name);
             vedioUrl="http://cn-jsks1-dx.acgvideo.com/vg14/9/03/11734397-1-hd.mp4?expires=1483851000&ssig=p4LJzjbOFGnkIkWnGdIHWw&oi=993498066&nfa=MUKyIyydbjs5cQe1kXiVCw==&dynamic=1";
-            //playVideo(vedioUrl);
+            playVideo(vedioUrl);
         }
 
         public void playVideo(String url) {
@@ -241,7 +231,7 @@ public class VideoActivity extends AppCompatActivity{
 //                    mVideoView.setVideoURI(intent.getData());
 //                }
 //            }
-            mVideoView.setVideoPath("http://cn-jsks1-dx.acgvideo.com/vg14/9/03/11734397-1-hd.mp4?expires=1483851000&ssig=p4LJzjbOFGnkIkWnGdIHWw&oi=993498066&nfa=MUKyIyydbjs5cQe1kXiVCw==&dynamic=1");
+            mVideoView.setVideoPath(vedioUrl);
             mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {

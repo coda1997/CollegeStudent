@@ -8,9 +8,9 @@
         android:title="添加视频"
         app:showAsAction="never" />
     <item
-        android:id="@+id/id_video_sharing"
+        android:id="@+id/id_video_management"
         android:orderInCategory="100"
-        android:title="分享"
+        android:title="视频缓存"
         app:showAsAction="never" />
     <item
         android:id="@+id/id_video_setting"

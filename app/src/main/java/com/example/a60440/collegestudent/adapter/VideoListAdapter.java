@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.listener.MyItemClickListener;
+import com.example.a60440.collegestudent.loader.NormalImageLoader;
+import com.example.a60440.collegestudent.utils.VideoInfo;
 
 import java.util.ArrayList;
 
@@ -20,31 +22,29 @@ import java.util.ArrayList;
  */
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.NormalHolder> {
-    private ArrayList<String> items;
-    private ArrayList<Integer> imageIds;
+    private ArrayList<VideoInfo> videos;
     private Context context;
     private MyItemClickListener myItemClickListener;
     private CardView cardView;
 
-    public VideoListAdapter(ArrayList<String> items,ArrayList<Integer> imageIds,Context context){
-        this.items=items;
-        this.imageIds=imageIds;
+    public VideoListAdapter(ArrayList<VideoInfo> videoInfo,Context context){
         this.context=context;
+        videos=videoInfo;
     }
 
     @Override
     public void onBindViewHolder(NormalHolder holder, int position) {
         if(holder instanceof NormalHolder){
             NormalHolder normalHolder = (NormalHolder)holder;
-            normalHolder.textView.setText(items.get(position));
-            normalHolder.imageView.setImageResource(imageIds.get(position));
+            normalHolder.textView.setText(videos.get(position).videoName);
+            new NormalImageLoader().getPicture(videos.get(position).videoImage,normalHolder.imageView);
         }
 
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return videos.size();
     }
 
     @Override
