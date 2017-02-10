@@ -17,20 +17,33 @@
     <LinearLayout style="@style/wrap_layout" >
         <!-- 上圆角-->
         <LinearLayout style="@style/top_layout">
+            <TextView style="@style/usertext" android:text="头像" />
+            <!--<ImageView style="@style/img_arrow"/>-->
+            <com.example.a60440.collegestudent.view.RoundCornerImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_arrow_down_blue_grey_300_18dp"
+                android:id="@+id/id_setting_personfile_image"
+                />
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <LinearLayout style="@style/mid_layout"
+            android:id="@+id/setting_nickname">
             <TextView style="@style/usertext" android:text="昵称" />
             <!--<ImageView style="@style/img_arrow"/>-->
             <TextView style="@style/usertext" android:text="江一航"
                 android:gravity="center"/>
+            <ImageView style="@style/img_arrow"/>
         </LinearLayout>
-
         <!-- 分割线 -->
         <View style="@style/bg_line"/>
         <!-- 无圆角-->
-        <LinearLayout style="@style/mid_layout">
+        <LinearLayout style="@style/mid_layout" android:id="@+id/setting_gender">
             <TextView style="@style/usertext" android:text="性别" />
             <!--<ImageView style="@style/img_arrow"/>-->
             <TextView style="@style/usertext" android:text="男"
                 android:gravity="center"/>
+            <ImageView style="@style/img_arrow"/>
         </LinearLayout>
         <View style="@style/bg_line"/>
         <!-- 无圆角-->
@@ -48,31 +61,34 @@
         </LinearLayout>
         <View style="@style/bg_line"/>
         <!-- 无圆角-->
-        <LinearLayout style="@style/mid_layout">
+        <LinearLayout style="@style/mid_layout" android:id="@+id/setting_region">
             <TextView style="@style/usertext" android:text="居住地" />
+
             <!--<ImageView style="@style/img_arrow"/>-->
             <TextView style="@style/usertext" android:text="湖北 武汉"
                 android:gravity="center"/>
+            <ImageView style="@style/img_arrow"/>
 
         </LinearLayout>
         <View style="@style/bg_line"/>
         <!-- 无圆角-->
-        <LinearLayout style="@style/mid_layout">
+        <LinearLayout style="@style/mid_layout" android:id="@+id/setting_major">
             <TextView style="@style/usertext" android:text="擅长学科" />
             <!--<ImageView style="@style/img_arrow"/>-->
             <TextView style="@style/usertext" android:text="语文 数学"
                 android:gravity="center"
                 />
-
+            <ImageView style="@style/img_arrow"/>
         </LinearLayout>
 
         <View style="@style/bg_line"/>
         <!-- 下圆角-->
-        <LinearLayout style="@style/bottom_layout">
+        <LinearLayout style="@style/bottom_layout" android:id="@+id/setting_school">
             <TextView style="@style/usertext" android:text="所属大学" />
             <!--<ImageView style="@style/img_arrow"/>-->
             <TextView style="@style/usertext" android:text="武汉大学"
                 android:gravity="center" />
+            <ImageView style="@style/img_arrow"/>
         </LinearLayout>
 
     </LinearLayout>

@@ -3,28 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_marginTop="20dp"
     android:layout_height="match_parent">
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:cardBackgroundColor="#02bcd4"
-        app:cardCornerRadius="10dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-
-
+    <!-- 全圆角-->
+    <LinearLayout style="@style/wrap_layout"
         >
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="this is a personalize signature"
-            android:id="@+id/id_setting_personalizesignature_text"
-            />
+        <LinearLayout style="@style/single_layout">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=""
+                android:maxLength="30"
+                android:background="@null"
 
-    </android.support.v7.widget.CardView>
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

@@ -8,4 +8,5 @@ public class VideoInfo {
     public String videoName;
     public String videoSize;
     public String videoImage;
+    public String videoUrl;
 }

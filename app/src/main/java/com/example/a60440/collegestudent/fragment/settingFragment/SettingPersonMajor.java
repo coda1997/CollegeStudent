@@ -6,27 +6,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.example.a60440.collegestudent.R;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by 60440 on 2017/2/9.
  */
 
-public class SettingPersonIntroduction extends Fragment {
-    private final int currentFragmentId = 3;
+public class SettingPersonMajor extends Fragment {
+    private final int currentFragmentId = 7;
     public int getCurrentFragmentId() {
         return currentFragmentId;
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.setting_personal_introduction,container,false);
-
+        View v = inflater.inflate(R.layout.setting_personalizesignature,container,false);
         return v;
     }
 }

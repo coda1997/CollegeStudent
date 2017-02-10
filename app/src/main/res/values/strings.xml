@@ -107,4 +107,6 @@
     <string name="app_label">搜索</string>
     <string name="search_hint"></string>
     <string name="user_information_src">userInfo</string>
+    <string name="save">保存</string>
+
 </resources>

@@ -38,8 +38,9 @@ public class UserUtils {
     }
 
 
-    public static User getParam(Context context , String key, String defaultObject){
-        String type = defaultObject.getClass().getSimpleName();
+
+    public static User getParam(Context context){
+
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 
         User user = new User();
