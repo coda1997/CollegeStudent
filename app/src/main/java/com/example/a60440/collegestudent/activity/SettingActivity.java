@@ -129,14 +129,14 @@ public class SettingActivity extends AppCompatActivity{
             }
 //            toolbar.inflateMenu(R.menu.save_menu);
         }else if(i==6){
-            String gender = mPersongfile.getUser().getGender();
+//            String gender = mPersongfile.getUser().getGender();
 
             if(settingPersonGender==null){
                 settingPersonGender = new SettingPersonGender();
-                settingPersonGender.setGender(gender);
+//                settingPersonGender.setGender(gender);
                 transaction.add(R.id.id__setting_container,settingPersonGender);
             }else{
-                settingPersonGender.setGender(gender);
+//                settingPersonGender.setGender(gender);
                 transaction.show(settingPersonGender);
             }
 

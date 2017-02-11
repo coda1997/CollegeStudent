@@ -24,6 +24,15 @@ public class User implements Serializable{
     private String imageURL;
     private String gender;
     private String major;
+    private String introduction;
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
 
     public String getMajor() {
         return major;

@@ -52,7 +52,7 @@ public class SettingPersonGender extends Fragment {
         this.gender = gender;
     }
 
-    private String gender="男";
+    private String gender="女";
 
     public int getCurrentFragmentId() {
         return currentFragmentId;
@@ -61,6 +61,8 @@ public class SettingPersonGender extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.setting_persona_gender,container,false);
         ButterKnife.bind(this,v);
+        User user = UserUtils.getParam(getContext());
+        gender=user.getGender();
         if(gender.equals("男")){
             maleImageView.setVisibility(ImageView.VISIBLE);
             femaleImageView.setVisibility(ImageView.INVISIBLE);
@@ -73,11 +75,17 @@ public class SettingPersonGender extends Fragment {
 
     private void backToPersonFile(){
         if(getActivity() instanceof SettingActivity){
-            User user = UserUtils.getParam(getContext());
-            user.setGender(gender);
-            Log.i("gender:==",user.getGender());
-            UserUtils.setParam(getContext(),user);
+
             ((SettingActivity) getActivity()).setSelect(1);
         }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        User user = UserUtils.getParam(getContext());
+        user.setGender(gender);
+        Log.i("gender:==",user.getGender());
+        UserUtils.setParam(getContext(),user);
+        super.onHiddenChanged(hidden);
     }
 }

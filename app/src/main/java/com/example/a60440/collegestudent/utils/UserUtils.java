@@ -36,6 +36,7 @@ public class UserUtils {
         editor.putString("imageURL", (String)user.getImageURL());
         editor.putString("major",(String)user.getMajor());
         editor.putString("gender",(String)user.getGender());
+        editor.putString("introduction",(String)user.getIntroduction());
         editor.commit();
     }
 
@@ -62,6 +63,7 @@ public class UserUtils {
         user.setImageURL(sp.getString("imageURL","nonexist"));
         user.setMajor(sp.getString("major","nonexist"));
         user.setGender(sp.getString("gender","男"));
+        user.setIntroduction(sp.getString("introduction","nonexist"));
         return user;
     }
 }

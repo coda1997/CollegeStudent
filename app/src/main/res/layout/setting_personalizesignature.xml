@@ -15,6 +15,7 @@
                 android:text=""
                 android:maxLength="30"
                 android:background="@null"
+                android:id="@+id/id_setting_textview"
 
                 />
         </LinearLayout>

@@ -117,9 +117,8 @@ public class SettingPeronFileFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
+    public void onHiddenChanged(boolean hidden) {
         initData(getContext());
-        Log.i("gender:=",user.getGender());
-        super.onResume();
+        super.onHiddenChanged(hidden);
     }
 }

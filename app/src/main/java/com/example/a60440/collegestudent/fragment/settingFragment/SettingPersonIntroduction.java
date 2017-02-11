@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.bean.User;
+import com.example.a60440.collegestudent.utils.UserUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,10 +25,24 @@ public class SettingPersonIntroduction extends Fragment {
     public int getCurrentFragmentId() {
         return currentFragmentId;
     }
+    @Bind(R.id.editText_introduction)
+    EditText editText;
+    private String introcuction;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.setting_personal_introduction,container,false);
-
+        ButterKnife.bind(this,v);
+        User user = UserUtils.getParam(getContext());
+        introcuction= user.getIntroduction();
+        editText.setText(introcuction);
         return v;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        User user = UserUtils.getParam(getContext());
+        user.setIntroduction(introcuction);
+        UserUtils.setParam(getContext(),user);
+        super.onHiddenChanged(hidden);
     }
 }
