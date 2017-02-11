@@ -23,13 +23,13 @@ import java.util.ArrayList;
 
 public class VideoManagementAdapter extends RecyclerView.Adapter {
     private ArrayList<VideoInfo> videos;
-    private Context context;
     private MyItemClickListener myItemClickListener;
     private Activity activity;
+    private Context context;
 
-    public VideoManagementAdapter(ArrayList<VideoInfo> videoInfos){
+    public VideoManagementAdapter(ArrayList<VideoInfo> videoInfos, Context context){
         videos=videoInfos;
-
+        this.context=context;
     }
 
     public void getActivity(Activity activity){

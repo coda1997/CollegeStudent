@@ -112,12 +112,14 @@ public class VideoActivity extends AppCompatActivity {
     private long playingTime;
     private long lastTime;
 //    private int playerWidth;
-
+    private String videoUrl="http://cn-jxnc-dx-v-03.acgvideo.com/vg7/7/e0/14066508-1-hd.mp4?expires=1486817400&platform=pc&ssig=QV97l3-W509msb_FJ1P2rQ&oi=3059007723&nfa=C5/INcPB6RrNTcKU3W9KyQ==&dynamic=1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vedio_main);
+        Intent intent = getIntent();
+        videoUrl = intent.getStringExtra("videoUrl");
         ButterKnife.bind(this);
         Vitamio.initialize(this);
         initListener();
@@ -353,7 +355,7 @@ public class VideoActivity extends AppCompatActivity {
                 mVideoView.setVideoURI(intent.getData());
             }
         }
-        mVideoView.setVideoPath("http://www.modrails.com/videos/passenger_nginx.mov");
+        mVideoView.setVideoPath(videoUrl);
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {

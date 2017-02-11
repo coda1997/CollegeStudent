@@ -32,6 +32,7 @@
             <TextView style="@style/usertext" android:text="昵称" />
             <!--<ImageView style="@style/img_arrow"/>-->
             <TextView style="@style/usertext" android:text="江一航"
+                android:id="@+id/id_setting_textview_nickname"
                 android:gravity="center"/>
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
@@ -41,7 +42,8 @@
         <LinearLayout style="@style/mid_layout" android:id="@+id/setting_gender">
             <TextView style="@style/usertext" android:text="性别" />
             <!--<ImageView style="@style/img_arrow"/>-->
-            <TextView style="@style/usertext" android:text="男"
+            <TextView style="@style/usertext" android:text=""
+                android:id="@+id/id_setting_textview_gender"
                 android:gravity="center"/>
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
@@ -62,10 +64,12 @@
         <View style="@style/bg_line"/>
         <!-- 无圆角-->
         <LinearLayout style="@style/mid_layout" android:id="@+id/setting_region">
-            <TextView style="@style/usertext" android:text="居住地" />
+            <TextView style="@style/usertext" android:text="居住地"
+                />
 
             <!--<ImageView style="@style/img_arrow"/>-->
             <TextView style="@style/usertext" android:text="湖北 武汉"
+                android:id="@+id/id_setting_textview_region"
                 android:gravity="center"/>
             <ImageView style="@style/img_arrow"/>
 
@@ -76,6 +80,7 @@
             <TextView style="@style/usertext" android:text="擅长学科" />
             <!--<ImageView style="@style/img_arrow"/>-->
             <TextView style="@style/usertext" android:text="语文 数学"
+                android:id="@+id/id_setting_textview_major"
                 android:gravity="center"
                 />
             <ImageView style="@style/img_arrow"/>
@@ -87,6 +92,7 @@
             <TextView style="@style/usertext" android:text="所属大学" />
             <!--<ImageView style="@style/img_arrow"/>-->
             <TextView style="@style/usertext" android:text="武汉大学"
+                android:id="@+id/id_setting_textview_school"
                 android:gravity="center" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>

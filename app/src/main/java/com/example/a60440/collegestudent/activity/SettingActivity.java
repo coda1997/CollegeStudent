@@ -2,9 +2,11 @@ package com.example.a60440.collegestudent.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.view.MenuItem;
 import android.view.Window;
 
 import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.bean.User;
 import com.example.a60440.collegestudent.fragment.settingFragment.SettingMainFragment;
 import com.example.a60440.collegestudent.fragment.settingFragment.SettingPeronFileFragment;
 import com.example.a60440.collegestudent.fragment.settingFragment.SettingPersonGender;
@@ -36,8 +39,6 @@ import static android.view.KeyEvent.KEYCODE_BACK;
 public class SettingActivity extends AppCompatActivity{
     private SettingMainFragment mSettingMain;
     private SettingPeronFileFragment mPersongfile;
-//    private Fragment mNotification;
-//    private Fragment mSideFunction;
     private SettingPersonalizeSignature mSettingPersionalizeSignature;
     private SettingPersonIntroduction mPersionalIntroduction;
     private SettingPersonName settingPersonName;
@@ -76,7 +77,7 @@ public class SettingActivity extends AppCompatActivity{
     FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         hideFragment(transaction);
-            toolbar.getMenu().clear();
+//            toolbar.getMenu().clear();
         currentFragmentId=i;
         if(i==0){
             if(mSettingMain==null){
@@ -93,6 +94,7 @@ public class SettingActivity extends AppCompatActivity{
             }else{
                 transaction.show(mPersongfile);
             }
+//            mPersongfile.initData(getBaseContext());
         }else if(i==2){
             if(mSettingPersionalizeSignature==null){
                 mSettingPersionalizeSignature=new SettingPersonalizeSignature();
@@ -100,7 +102,7 @@ public class SettingActivity extends AppCompatActivity{
             }else{
                 transaction.show(mSettingPersionalizeSignature);
             }
-            toolbar.inflateMenu(R.menu.save_menu);
+//            toolbar.inflateMenu(R.menu.save_menu);
 
         }else if(i==3){
             if(mPersionalIntroduction==null){
@@ -109,7 +111,7 @@ public class SettingActivity extends AppCompatActivity{
             }else {
                 transaction.show(mPersionalIntroduction);
             }
-            toolbar.inflateMenu(R.menu.save_menu);
+//            toolbar.inflateMenu(R.menu.save_menu);
         }else if(i==4){
             if(settingPersonName==null){
                 settingPersonName=new SettingPersonName();
@@ -117,7 +119,7 @@ public class SettingActivity extends AppCompatActivity{
             }else {
                 transaction.show(settingPersonName);
             }
-            toolbar.inflateMenu(R.menu.save_menu);
+//            toolbar.inflateMenu(R.menu.save_menu);
         }else if(i==5){
             if(settingPersonRegion==null){
                 settingPersonRegion=new SettingPersonRegion();
@@ -125,14 +127,19 @@ public class SettingActivity extends AppCompatActivity{
             }else {
                 transaction.show(settingPersonRegion);
             }
-            toolbar.inflateMenu(R.menu.save_menu);
+//            toolbar.inflateMenu(R.menu.save_menu);
         }else if(i==6){
+            String gender = mPersongfile.getUser().getGender();
+
             if(settingPersonGender==null){
                 settingPersonGender = new SettingPersonGender();
+                settingPersonGender.setGender(gender);
                 transaction.add(R.id.id__setting_container,settingPersonGender);
             }else{
+                settingPersonGender.setGender(gender);
                 transaction.show(settingPersonGender);
             }
+
         }else if(i==7){
             if(settingPersonMajor==null){
                 settingPersonMajor = new SettingPersonMajor();
@@ -140,7 +147,7 @@ public class SettingActivity extends AppCompatActivity{
             }else{
                 transaction.show(settingPersonMajor);
             }
-            toolbar.inflateMenu(R.menu.save_menu);
+//            toolbar.inflateMenu(R.menu.save_menu);
         }else if(i==8){
             if(settingPersonSchool==null){
                 settingPersonSchool = new SettingPersonSchool();
@@ -148,9 +155,8 @@ public class SettingActivity extends AppCompatActivity{
             }else{
                 transaction.show(settingPersonSchool);
             }
-            toolbar.inflateMenu(R.menu.save_menu);
+//            toolbar.inflateMenu(R.menu.save_menu);
         }
-
 
         transaction.commit();
     }
@@ -168,8 +174,11 @@ public class SettingActivity extends AppCompatActivity{
             transaction.hide(settingPersonSchool);
         if(settingPersonMajor!=null)
             transaction.hide(settingPersonMajor);
-        if(settingPersonGender!=null)
+        if(settingPersonGender!=null){
+
             transaction.hide(settingPersonGender);
+
+        }
         if(settingPersonName!=null)
             transaction.hide(settingPersonName);
         if(settingPersonRegion!=null)
@@ -190,9 +199,5 @@ public class SettingActivity extends AppCompatActivity{
         }
         return super.onKeyDown(keyCode, event);
     }
-//    private void initMenu(){
-//        toolbar.inflateMenu(R.menu.save_menu);
-//        toolbar.getMenu().set
-//
-//    }
+
 }

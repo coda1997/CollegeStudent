@@ -22,6 +22,25 @@ public class User implements Serializable{
     private String phone;
     private String signature;
     private String imageURL;
+    private String gender;
+    private String major;
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public String getId() {
         return id;
     }
@@ -106,10 +125,25 @@ public class User implements Serializable{
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
+
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        return new String(id+" "+username+" "+password);
+        return "User{" +
+                "classname='" + classname + '\'' +
+                ", id='" + id + '\'' +
+                ", identity='" + identity + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", number='" + number + '\'' +
+                ", realname='" + realname + '\'' +
+                ", region='" + region + '\'' +
+                ", school='" + school + '\'' +
+                ", phone='" + phone + '\'' +
+                ", signature='" + signature + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
     }
-
 }

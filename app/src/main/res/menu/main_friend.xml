@@ -12,11 +12,7 @@
         android:orderInCategory="100"
         android:title="@string/add_class"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/chatting_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_action_action_search"

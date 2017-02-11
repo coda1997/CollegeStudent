@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.bean.User;
 import com.example.a60440.collegestudent.requestServes.RequestServes;
+import com.example.a60440.collegestudent.utils.UserUtils;
 import com.google.gson.Gson;
 
 import butterknife.Bind;
@@ -36,6 +37,15 @@ public class LoginActivity extends Activity{
 //        InitLogin(userName,userpwd);
         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
         startActivity(intent);
+        //here is a test for initialize a user account
+        User user = new User();
+        user.setUsername("zhang3");
+        user.setPassword("123456");
+        user.setNickname("张三");
+        user.setPhone("13026133110");
+        user.setEmail("haha");
+        user.setGender("男");
+        UserUtils.setParam(getBaseContext(),user);
     }
     @OnClick(R.id.button3)
     void registerOnClick(){

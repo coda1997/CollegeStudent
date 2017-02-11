@@ -26,15 +26,14 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 
 public class QuestionContent extends Fragment {
-    @Bind(R.id.id_question_content)
-    TextView questionContent;
+
     private int questionId = 0;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.ques_content,container,false);
-        ButterKnife.bind(this,v);
-        getQuestion(questionId);
+//        ButterKnife.bind(this,v);
+//        getQuestion(questionId);
         return v;
     }
     private void getQuestion(int questionId) {

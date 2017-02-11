@@ -34,6 +34,8 @@ public class UserUtils {
         editor.putString("phone", (String)user.getPhone());
         editor.putString("signature", (String)user.getSignature());
         editor.putString("imageURL", (String)user.getImageURL());
+        editor.putString("major",(String)user.getMajor());
+        editor.putString("gender",(String)user.getGender());
         editor.commit();
     }
 
@@ -58,6 +60,8 @@ public class UserUtils {
         user.setPhone(sp.getString("phone","nonexist"));
         user.setSignature(sp.getString("signature","nonexist"));
         user.setImageURL(sp.getString("imageURL","nonexist"));
+        user.setMajor(sp.getString("major","nonexist"));
+        user.setGender(sp.getString("gender","男"));
         return user;
     }
 }

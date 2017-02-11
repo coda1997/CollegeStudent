@@ -3,9 +3,8 @@ package com.example.a60440.collegestudent.fragment.settingFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,7 +14,6 @@ import com.example.a60440.collegestudent.activity.SettingActivity;
 import com.example.a60440.collegestudent.bean.User;
 import com.example.a60440.collegestudent.utils.UserUtils;
 
-import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,7 +25,6 @@ import butterknife.OnClick;
 
 public class SettingPersonGender extends Fragment {
     private final int currentFragmentId = 6;
-    private String gender = "male";
     @Bind(R.id.id_setting_gender_check_female)
     ImageView femaleImageView;
     @Bind(R.id.id_setting_gender_check_male)
@@ -36,17 +33,26 @@ public class SettingPersonGender extends Fragment {
     void setGenderFemale(){
         femaleImageView.setVisibility(ImageView.VISIBLE);
         maleImageView.setVisibility(ImageView.INVISIBLE);
-        gender = "male";
+        gender = "女";
         backToPersonFile();
     }
     @OnClick(R.id.setting_gender_male)
     void setGenderMale(){
         maleImageView.setVisibility(ImageView.VISIBLE);
         femaleImageView.setVisibility(ImageView.INVISIBLE);
-        gender="female";
+        gender="男";
         backToPersonFile();
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    private String gender="男";
 
     public int getCurrentFragmentId() {
         return currentFragmentId;
@@ -55,14 +61,22 @@ public class SettingPersonGender extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.setting_persona_gender,container,false);
         ButterKnife.bind(this,v);
+        if(gender.equals("男")){
+            maleImageView.setVisibility(ImageView.VISIBLE);
+            femaleImageView.setVisibility(ImageView.INVISIBLE);
+        }else {
+            maleImageView.setVisibility(ImageView.INVISIBLE);
+            femaleImageView.setVisibility(ImageView.VISIBLE);
+        }
         return v;
     }
 
     private void backToPersonFile(){
         if(getActivity() instanceof SettingActivity){
             User user = UserUtils.getParam(getContext());
-
-
+            user.setGender(gender);
+            Log.i("gender:==",user.getGender());
+            UserUtils.setParam(getContext(),user);
             ((SettingActivity) getActivity()).setSelect(1);
         }
     }
