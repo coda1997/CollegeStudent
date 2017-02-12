@@ -8,7 +8,6 @@ public class QuestionInfo {
     public String itemName;
     public String itemTime;
     public String peopleNum;
-    public String itemClass;
     public String userImage;
     public String userName;
 }

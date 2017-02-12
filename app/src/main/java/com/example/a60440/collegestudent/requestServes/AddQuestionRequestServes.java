@@ -1,6 +1,8 @@
 package com.example.a60440.collegestudent.requestServes;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -9,6 +11,10 @@ import retrofit2.http.Query;
  */
 
 public interface AddQuestionRequestServes {
-    @POST("servlet/AddQuestion")
-    Call<String> getString(@Query("QuestionContent") String questionContent);
+    @POST("servlet/AddQuestionServlet")
+    @FormUrlEncoded
+    Call<String> getString(@Field("userId") String userId,
+                           @Field("qustionTitle") String itemName,
+                           @Field("questionContent") String content
+                           );
 }

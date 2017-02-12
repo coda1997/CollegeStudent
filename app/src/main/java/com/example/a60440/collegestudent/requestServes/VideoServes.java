@@ -8,8 +8,8 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
-public interface VedioServes {
-    @POST("servlet/vedio")
-    Call<String> getString(@Query("name") String vedioName);
+public interface VideoServes {
+    @POST("servlet/GetVideoServlet")
+    Call<String> getString(@Query("userId") String userId);
 
 }

@@ -30,17 +30,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.bean.Result;
 import com.example.a60440.collegestudent.bean.User;
 import com.example.a60440.collegestudent.fragment.questionFragment.AddQuestionFragment;
 import com.example.a60440.collegestudent.fragment.FriendFragment;
 import com.example.a60440.collegestudent.fragment.questionFragment.QuestionContent;
 import com.example.a60440.collegestudent.fragment.questionFragment.QuestionFragment;
 import com.example.a60440.collegestudent.fragment.VedioFragment;
+import com.example.a60440.collegestudent.requestServes.ImageUploadServes;
 import com.example.a60440.collegestudent.utils.ImageUtils;
 import com.example.a60440.collegestudent.utils.UserUtils;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.view.KeyEvent.KEYCODE_BACK;
 
@@ -49,12 +59,8 @@ public class MainActivity extends AppCompatActivity
     private LinearLayout mTabQuestion;
     private LinearLayout mTabFriend;
     private LinearLayout mTabVideo;
-    private final String TAG_2 = "OnAddClick";
-
     private Fragment mTab01;
-
     private Fragment mTab02;
-
     private Fragment mTab03;
     private Fragment mTabAdd;
     private Fragment mTabContent;
@@ -77,6 +83,7 @@ public class MainActivity extends AppCompatActivity
         user = (User) intent.getSerializableExtra("User");
         if(user!=null){
             //...
+            UserUtils.setParam(getBaseContext(),user);
         }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -359,9 +366,11 @@ public class MainActivity extends AppCompatActivity
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case CHOOSE_PICTURE: // 选择本地照片
-                        Intent openAlbumIntent = new Intent(
-                                Intent.ACTION_GET_CONTENT);
+//                        Intent openAlbumIntent = new Intent(
+//                                Intent.ACTION_GET_CONTENT);
+                        Intent openAlbumIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         openAlbumIntent.setType("image/*");
+//                        startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
                         startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
                         break;
                     case TAKE_PICTURE: // 拍照
@@ -450,6 +459,29 @@ public class MainActivity extends AppCompatActivity
         if(imagePath != null){
             // 拿着imagePath上传了
             // ...
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(getResources().getString(R.string.baseURL))
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            ImageUploadServes imageUploadServes = retrofit.create(ImageUploadServes.class);
+
+            File imageFile = new File(imagePath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart"),imageFile);
+            Call<Result> call = imageUploadServes.uploadImage(user.getId(),requestBody);
+            call.enqueue(new Callback<Result>() {
+                @Override
+                public void onResponse(Call<Result> call, Response<Result> response) {
+                    Log.i("uploader iamge:=","succeed");
+                }
+
+                @Override
+                public void onFailure(Call<Result> call, Throwable t) {
+                    Log.i("uploader iamge:=","fail");
+
+                }
+            });
+
+
         }
     }
 }

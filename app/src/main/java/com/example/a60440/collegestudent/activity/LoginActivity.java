@@ -37,18 +37,18 @@ public class LoginActivity extends Activity {
     void loginOnClick() {
         userName = loginName.getText().toString();
         userpwd = loginpwd.getText().toString();
-//        InitLogin(userName,userpwd);
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
+        InitLogin(userName,userpwd);
+//        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+  //      startActivity(intent);
         //here is a test for initialize a user account
-        User user = new User();
-        user.setUsername("zhang3");
-        user.setPassword("123456");
-        user.setNickname("张三");
-        user.setPhone("13026133110");
-        user.setEmail("haha");
-        user.setGender("男");
-        UserUtils.setParam(getBaseContext(), user);
+//        User user = new User();
+//        user.setUsername("zhang3");
+//        user.setPassword("123456");
+//        user.setNickname("张三");
+//        user.setPhone("13026133110");
+//        user.setEmail("haha");
+//        user.setGender("男");
+//        UserUtils.setParam(getBaseContext(), user);
     }
 
     @OnClick(R.id.button3)
@@ -69,7 +69,7 @@ public class LoginActivity extends Activity {
         ButterKnife.bind(this);
     }
 
-    private void InitLogin(String username, String userpwd) {
+    private void InitLogin(final String username, final String userpwd) {
         Retrofit retorfit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.baseURL))
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -81,12 +81,11 @@ public class LoginActivity extends Activity {
             @Override
             public void onFailure(Call<String> call, Throwable throwable) {
                 Log.e("===", "fail");
-
             }
 
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                Log.e("==", "return:" + response.body().toString());
+                Log.e("==", "return:" + username+" "+ userpwd);
                 Gson gson = new Gson();
                 User user = gson.fromJson(response.body(), User.class);
                 if (user != null) {

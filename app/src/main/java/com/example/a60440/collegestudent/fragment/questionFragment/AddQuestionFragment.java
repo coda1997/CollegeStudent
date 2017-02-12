@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.activity.MainActivity;
 import com.example.a60440.collegestudent.requestServes.AddQuestionRequestServes;
+import com.example.a60440.collegestudent.utils.UserUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,10 +37,10 @@ public class AddQuestionFragment extends Fragment {
     @OnClick(R.id.id_Button_submit_question)
     void setSubmitButton(){
         submit();
-        if(getActivity() instanceof MainActivity){
-            ((MainActivity) getActivity()).setSelect(0);
-        }
+
     }
+    @Bind(R.id.id_add_question_content)
+    EditText contentEditView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,25 +50,38 @@ public class AddQuestionFragment extends Fragment {
     }
 
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        questionEdit.setText("");
+        contentEditView.setText("");
+        super.onHiddenChanged(hidden);
+    }
+
     private void submit() {
         Retrofit retorfit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.baseURL))
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        AddQuestionRequestServes requestServes = retorfit.create(AddQuestionRequestServes.class);
-        Call<String> call = requestServes.getString(questionEdit.toString());
+        AddQuestionRequestServes addQuestionRequestServes = retorfit.create(AddQuestionRequestServes.class);
+        Call<String> call = addQuestionRequestServes.getString(UserUtils.getParam(getContext()).getId(),questionEdit.getText().toString(),contentEditView.getText().toString());
+        Log.i("Addquestion",questionEdit.getText().toString()+contentEditView.getText().toString());
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                Log.e("==","return: "+response.body().toString());//response
+                Log.i("addquestion","succeed");
+                if(getActivity() instanceof MainActivity){
+                    ((MainActivity) getActivity()).setSelect(0);
+                }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Log.e("===","fail");
+                Log.i("addquestion","fail");
+
             }
         });
+
     }
 
 

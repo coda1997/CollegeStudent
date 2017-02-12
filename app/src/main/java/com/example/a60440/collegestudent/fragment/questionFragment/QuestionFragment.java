@@ -63,20 +63,20 @@ public class QuestionFragment extends Fragment implements MyItemClickListener {
     private void initData(){
         questions=new ArrayList<>();
 
-        initData("大学生有怎么样的生活啊","10月10日","1111人","来自三年二班",imageUrl,"周铠");
-        initData("有父母陪是怎么样的","11月13日","643人","来自五年一班",imageUrl,"宋惠");
-        initData("大哥哥，这道题该怎么做？","12月01日","24人","来自四年一班",imageUrl,"王光曜");
-        initData("有时候很想在外地的父母，大姐姐可以告诉我，应该怎么做吗？","12月09日","63人","来自五年一班",imageUrl,"谢柱坤");
-        initData("这些题目好难啊，都不想做","11:02","382人","来自二年四班",imageUrl,"江茹");
-        initData("大哥哥，大学生活美好吗？","11:06","39人","来自五年六班",imageUrl,"王学舟");
+        initData("大学生有怎么样的生活啊","10月10日","1111人",imageUrl,"周铠");
+        initData("有父母陪是怎么样的","11月13日","643人",imageUrl,"宋惠");
+        initData("大哥哥，这道题该怎么做？","12月01日","24人",imageUrl,"王光曜");
+        initData("有时候很想在外地的父母，大姐姐可以告诉我，应该怎么做吗？","12月09日","63人",imageUrl,"谢柱坤");
+        initData("这些题目好难啊，都不想做","11:02","382人",imageUrl,"江茹");
+        initData("大哥哥，大学生活美好吗？","11:06","39人",imageUrl,"王学舟");
 
     }
-        private void initData(String data,String time,String peopleNum, String className, String id,String name){
+        private void initData(String data,String time,String peopleNum, String id,String name){
            QuestionInfo questionInfo = new QuestionInfo();
             questionInfo.itemName=data;
             questionInfo.itemTime=time;
             questionInfo.peopleNum=peopleNum;
-            questionInfo.itemClass=className;
+
             questionInfo.userImage=id;
             questionInfo.userName=name;
             questions.add(questionInfo);

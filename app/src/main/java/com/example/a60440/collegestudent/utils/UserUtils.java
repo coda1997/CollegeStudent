@@ -2,8 +2,19 @@ package com.example.a60440.collegestudent.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
+import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.bean.User;
+import com.example.a60440.collegestudent.requestServes.RequestServes;
+import com.example.a60440.collegestudent.requestServes.UpdateInfoServes;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Created by 60440 on 2017/2/9.
@@ -38,6 +49,28 @@ public class UserUtils {
         editor.putString("gender",(String)user.getGender());
         editor.putString("introduction",(String)user.getIntroduction());
         editor.commit();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(context.getResources().getString(R.string.baseURL))
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        UpdateInfoServes updateInfoServes = retrofit.create(UpdateInfoServes.class);
+        Call<String> call = updateInfoServes.getString(user.getId(),user.getNickname(),
+                user.getPassword(),user.getRegion(),user.getSchool(),user.getSignature(),
+                user.getImageURL(),user.getGender(),user.getMajor(),user.getIntroduction()
+                );
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.i("setting update:==",response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.i("setting update:==","fail");
+            }
+        });
+
     }
 
 
