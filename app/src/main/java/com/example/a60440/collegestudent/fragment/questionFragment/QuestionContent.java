@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.requestServes.GetAnswer;
 import com.example.a60440.collegestudent.requestServes.QuestionRequestServes;
 
 import butterknife.Bind;
@@ -27,7 +28,16 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class QuestionContent extends Fragment {
 
-    private int questionId = 0;
+    private String questionId;
+
+    public String getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,14 +46,14 @@ public class QuestionContent extends Fragment {
 //        getQuestion(questionId);
         return v;
     }
-    private void getQuestion(int questionId) {
+    private void getAnswer(String questionId) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.baseURL))
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        QuestionRequestServes requestServes = retrofit.create(QuestionRequestServes.class);
-        Call<String> call = requestServes.getString(questionId+"");
+        GetAnswer getAnswer = retrofit.create(GetAnswer.class);
+        Call<String> call = getAnswer.getString(questionId+"");
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {

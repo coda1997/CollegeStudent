@@ -1,9 +1,9 @@
 package com.example.a60440.collegestudent.activity;
 
-import android.app.SearchManager;
-import android.content.Context;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +13,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,14 +24,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.bean.Result;
 import com.example.a60440.collegestudent.bean.User;
-import com.example.a60440.collegestudent.fragment.questionFragment.AddQuestionFragment;
 import com.example.a60440.collegestudent.fragment.FriendFragment;
 import com.example.a60440.collegestudent.fragment.questionFragment.QuestionContent;
 import com.example.a60440.collegestudent.fragment.questionFragment.QuestionFragment;
@@ -72,6 +69,7 @@ public class MainActivity extends AppCompatActivity
     protected static final int CHOOSE_PICTURE = 0;
     protected static final int TAKE_PICTURE = 1;
     private static final int CROP_SMALL_PICTURE = 2;
+    private static final int TAKE_VIDEO = 3;
     protected static Uri tempUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +141,11 @@ public class MainActivity extends AppCompatActivity
         }else if(id==R.id.id_sharing){
             return true;
         }else if(id==R.id.id_video_adding){
+            Intent innerIntent = new Intent(Intent.ACTION_GET_CONTENT);
+            innerIntent.setType("video/*");
+            Intent wrapperIntent = Intent.createChooser(innerIntent,null);
+            startActivityForResult(wrapperIntent,TAKE_VIDEO);
+
             return true;
         }else if(id==R.id.id_video_management){
             Intent intent = new Intent(this,VedioManegerActivity.class);
@@ -278,14 +281,14 @@ public class MainActivity extends AppCompatActivity
                 toolbar.inflateMenu(R.menu.main_friend);
                 break;
             case 3:
-                if(mTabAdd==null){
-                    currentFragmentId = 3;
-                    mTabAdd= new AddQuestionFragment();
-                    transaction.add(R.id.id_content,mTabAdd);
-                }else{
-                    currentFragmentId = 3;
-                    transaction.show(mTabAdd);
-                }
+//                if(mTabAdd==null){
+//                    currentFragmentId = 3;
+//                    mTabAdd= new AddQuestionFragment();
+//                    transaction.add(R.id.id_content,mTabAdd);
+//                }else{
+//                    currentFragmentId = 3;
+//                    transaction.show(mTabAdd);
+//                }
                 break;
             case 4:
                 if(mTabContent==null){
@@ -302,7 +305,8 @@ public class MainActivity extends AppCompatActivity
                 break;
             default:break;
         }
-        searchView.setMenuItem(toolbar.getMenu().findItem(R.id.action_search));
+        if(toolbar.getMenu()!=null)
+            searchView.setMenuItem(toolbar.getMenu().findItem(R.id.action_search));
 
         transaction.commit();
 
@@ -372,6 +376,7 @@ public class MainActivity extends AppCompatActivity
                         openAlbumIntent.setType("image/*");
 //                        startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
                         startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
+
                         break;
                     case TAKE_PICTURE: // 拍照
                         Intent openCameraIntent = new Intent(
@@ -390,7 +395,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) { // 如果返回码是可以用的
             switch (requestCode) {
                 case TAKE_PICTURE:
@@ -404,8 +408,21 @@ public class MainActivity extends AppCompatActivity
                         setImageToView(data); // 让刚才选择裁剪得到的图片显示在界面上
                     }
                     break;
+                case TAKE_VIDEO:
+                    Uri uri = data.getData();
+                    Cursor cursor = getContentResolver().query(uri,null,null,null,null);
+                    cursor.moveToFirst();
+                    String video_path = cursor.getString(1);
+                    String video_size = cursor.getString(2);
+                    String video_name = cursor.getString(3);
+                    Log.i("video_path",video_path);
+                    Log.i("video_size",video_size);
+                    Log.i("video_name",video_name);
+
+                    break;
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
