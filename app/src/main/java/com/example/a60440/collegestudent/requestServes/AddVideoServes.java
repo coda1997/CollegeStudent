@@ -1,7 +1,10 @@
 package com.example.a60440.collegestudent.requestServes;
 
+import com.example.a60440.collegestudent.bean.User;
+
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Multipart;
@@ -16,7 +19,7 @@ import retrofit2.http.PartMap;
 public interface AddVideoServes {
     @Multipart
     @POST("servlet/AddVideoServlet")
-    Call<String> upload(@Part("fileName") String des,
-                        @Part("file\";filename=\"1.txt") RequestBody file
-                        );
+    Call<String> upload(
+            @Part("userId") String id,
+            @Part MultipartBody.Part file);
 }

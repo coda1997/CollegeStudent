@@ -35,29 +35,29 @@ public class AddVideoActivity extends Activity {
 
     }
 
-    private void updateVideo(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.baseURL))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        AddVideoServes addVideoServes = retrofit.create(AddVideoServes.class);
-        File file = new File(Environment.getExternalStorageDirectory()+"/"+"1.txt");
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
-        Call<String> call = addVideoServes.upload("this is a text",requestBody);
-
-
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-
-            }
-        });
-
-
-    }
+//    private void updateVideo(){
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(getResources().getString(R.string.baseURL))
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        AddVideoServes addVideoServes = retrofit.create(AddVideoServes.class);
+//        File file = new File(Environment.getExternalStorageDirectory()+"/"+"1.txt");
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+//        Call<String> call = addVideoServes.upload("this is a text",requestBody);
+//
+//
+//        call.enqueue(new Callback<String>() {
+//            @Override
+//            public void onResponse(Call<String> call, Response<String> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<String> call, Throwable t) {
+//
+//            }
+//        });
+//
+//
+//    }
 }

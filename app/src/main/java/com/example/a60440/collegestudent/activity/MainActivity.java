@@ -1,6 +1,8 @@
 package com.example.a60440.collegestudent.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,7 +10,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Process;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -34,7 +38,10 @@ import com.example.a60440.collegestudent.fragment.FriendFragment;
 import com.example.a60440.collegestudent.fragment.questionFragment.QuestionContent;
 import com.example.a60440.collegestudent.fragment.questionFragment.QuestionFragment;
 import com.example.a60440.collegestudent.fragment.VedioFragment;
+import com.example.a60440.collegestudent.requestServes.AddVideoServes;
+import com.example.a60440.collegestudent.requestServes.FileRequestBody;
 import com.example.a60440.collegestudent.requestServes.ImageUploadServes;
+import com.example.a60440.collegestudent.requestServes.RetrofitCallbcak;
 import com.example.a60440.collegestudent.utils.ImageUtils;
 import com.example.a60440.collegestudent.utils.UserUtils;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -42,6 +49,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import java.io.File;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,6 +79,7 @@ public class MainActivity extends AppCompatActivity
     private static final int CROP_SMALL_PICTURE = 2;
     private static final int TAKE_VIDEO = 3;
     protected static Uri tempUri;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,7 +150,7 @@ public class MainActivity extends AppCompatActivity
         }else if(id==R.id.id_sharing){
             return true;
         }else if(id==R.id.id_video_adding){
-            Intent innerIntent = new Intent(Intent.ACTION_GET_CONTENT);
+            Intent innerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
             innerIntent.setType("video/*");
             Intent wrapperIntent = Intent.createChooser(innerIntent,null);
             startActivityForResult(wrapperIntent,TAKE_VIDEO);
@@ -198,7 +207,8 @@ public class MainActivity extends AppCompatActivity
         mTabVideo = (LinearLayout)findViewById(R.id.id_tab_vedio);
         mTabFriend = (LinearLayout)findViewById(R.id.id_tab_friend);
 
-        searchView=(MaterialSearchView)findViewById(R.id.id_search_view);searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+        searchView=(MaterialSearchView)findViewById(R.id.id_search_view);
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //Do some magic
@@ -413,16 +423,70 @@ public class MainActivity extends AppCompatActivity
                     Cursor cursor = getContentResolver().query(uri,null,null,null,null);
                     cursor.moveToFirst();
                     String video_path = cursor.getString(1);
-                    String video_size = cursor.getString(2);
-                    String video_name = cursor.getString(3);
+                    final String video_size = cursor.getString(3);
+                    String video_name = cursor.getString(2);
                     Log.i("video_path",video_path);
                     Log.i("video_size",video_size);
                     Log.i("video_name",video_name);
+//                    AlertDialog.Builder videoBuilder = new AlertDialog.Builder(this);
+//                    videoBuilder.setTitle("上传视频");
+//                    videoBuilder
+
+                    showProcessDialog();
+                    RetrofitCallbcak<String> callbcak = new RetrofitCallbcak<String>() {
+                        @Override
+                        public void onSuccess(Call<String> call, Response<String> response) {
+                            Log.i("add video ","succeed");
+                            progressDialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Log.i("add video ","fail");
+                            progressDialog.dismiss();
+
+                        }
+
+                        @Override
+                        public void onLoading(final long total, final long process) {
+                            super.onLoading(total, process);
+                            runOnUiThread(new Runnable(){
+
+                                @Override
+                                public void run() {
+                                    int currentProcess = (int) (process*1.0f/Integer.parseInt(video_size)*100.0f);
+                                    Log.i("current progress total",currentProcess+" "+total+" "+process);
+                                    progressDialog.setProgress(currentProcess);
+                                }
+                            });
+                        }
+                    };
+                    File file = new File(video_path);
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("application/otcet-stream"),file);
+
+                    FileRequestBody<User> body = new FileRequestBody(requestBody,callbcak);
+                    MultipartBody.Part part = MultipartBody.Part.createFormData(file.getName(),file.getName(),body);
+                    Log.i("file name",file.getName());
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(getResources().getString(R.string.baseURL))
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+                    AddVideoServes addVideoServes = retrofit.create(AddVideoServes.class);
+                    Call<String> call = addVideoServes.upload(UserUtils.getParam(getApplicationContext()).getId(),part);
+                    call.enqueue(callbcak);
 
                     break;
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+    private void showProcessDialog(){
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("上传视频");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setProgress(0);
+        progressDialog.show();
+
     }
 
     /**
@@ -462,6 +526,7 @@ public class MainActivity extends AppCompatActivity
             uploadPic(photo);
         }
     }
+
 
     private void uploadPic(Bitmap bitmap) {
         // 上传至服务器
