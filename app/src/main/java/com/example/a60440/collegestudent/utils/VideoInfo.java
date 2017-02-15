@@ -5,8 +5,16 @@ package com.example.a60440.collegestudent.utils;
  */
 
 public class VideoInfo {
-    public String videoName;
-    public String videoSize;
-    public String videoImage;
+    @Override
+    public String toString() {
+        return "VideoInfo{" +
+                "videoId='" + videoId + '\'' +
+                ", videoTitle='" + videoTitle + '\'' +
+                ", videoUrl='" + videoUrl + '\'' +
+                '}';
+    }
+
+    public String videoTitle;
     public String videoUrl;
+    public String videoId;
 }

@@ -63,15 +63,13 @@ public class VedioManegerActivity extends Activity implements MyItemClickListene
 
     private void initDatas(){
         videos = new ArrayList<>();
-        videos.add(initDatas("haa",imageUrl,"www.baidu.com","100M"));
+        videos.add(initDatas("haa",imageUrl));
 
     }
-    private VideoInfo initDatas(String name,String imgeSrc,String url,String size){
+    private VideoInfo initDatas(String name,String url){
         VideoInfo video = new VideoInfo();
-        video.videoName=name;
-        video.videoImage=imgeSrc;
+        video.videoTitle=name;
         video.videoUrl=url;
-        video.videoSize=size;
         return video;
     }
     @Override

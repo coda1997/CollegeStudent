@@ -2,6 +2,7 @@ package com.example.a60440.collegestudent.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.os.CancellationSignal;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import com.example.a60440.collegestudent.loader.NormalImageLoader;
 import com.example.a60440.collegestudent.utils.VideoInfo;
 
 import java.util.ArrayList;
+
+import wseemann.media.FFmpegMediaMetadataRetriever;
 
 /**
  * Created by 60440 on 2017/2/8.
@@ -47,9 +50,16 @@ public class VideoManagementAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof VideoManagementHolder){
             VideoManagementHolder videoManagementHolder = (VideoManagementHolder) holder;
-            videoManagementHolder.videoName.setText(videos.get(position).videoName);
-            new NormalImageLoader().getPicture(videos.get(position).videoImage,videoManagementHolder.videoImg);
-
+            videoManagementHolder.videoName.setText(videos.get(position).videoTitle);
+            //new NormalImageLoader().getPicture(videos.get(position).videoImage,videoManagementHolder.videoImg);
+            FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
+            mmr.setDataSource(videos.get(position).videoUrl);
+            mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM);
+            mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST);
+            Bitmap bitmap = mmr.getFrameAtTime(20000000,FFmpegMediaMetadataRetriever.OPTION_CLOSEST);
+//            byte[] artwork = mmr.getEmbeddedPicture();
+            videoManagementHolder.videoImg.setImageBitmap(bitmap);
+            mmr.release();
         }
     }
 
