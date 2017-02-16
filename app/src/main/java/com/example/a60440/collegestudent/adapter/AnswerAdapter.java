@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.listener.MyItemClickListener;
-import com.example.a60440.collegestudent.utils.AnswerInfo;
-import com.example.a60440.collegestudent.utils.QuestionInfo;
+import com.example.a60440.collegestudent.bean.AnswerInfo;
+import com.example.a60440.collegestudent.bean.QuestionInfo;
 
 import java.util.ArrayList;
 
@@ -21,14 +21,12 @@ import java.util.ArrayList;
  */
 
 public class AnswerAdapter extends RecyclerView.Adapter {
-    private QuestionInfo question;
     private Context context;
     private MyItemClickListener myItemClickListener;
     private Activity activity;
     private ArrayList<AnswerInfo> answers;
 
-    public AnswerAdapter(ArrayList<AnswerInfo> answers,QuestionInfo question,Context context){
-        this.question=question;
+    public AnswerAdapter(ArrayList<AnswerInfo> answers,Context context){
         this.answers=answers;
         this.context=context;
 
@@ -48,13 +46,16 @@ public class AnswerAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof AnswerHolder){
             AnswerHolder answerHolder = (AnswerHolder)holder;
-
+//// TODO: 2017/2/16
         }
     }
 
     @Override
     public int getItemCount() {
         return 0;
+    }
+    public void setOnItemClickListener(MyItemClickListener listener){
+        this.myItemClickListener = listener;
     }
 
 

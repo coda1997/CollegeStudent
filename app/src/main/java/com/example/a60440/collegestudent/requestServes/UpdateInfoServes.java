@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 public interface UpdateInfoServes {
     @POST("servlet/updateCollegeStudentServlet")
     @FormUrlEncoded
-    Call<String> getString(@Field("id") String id,
+    Call<String> getString(@Field("id") int id,
                            @Field("nickname") String nickname,
                            @Field("password") String password,
                            @Field("region") String region,

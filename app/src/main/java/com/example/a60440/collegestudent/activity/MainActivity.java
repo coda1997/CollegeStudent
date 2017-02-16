@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -35,9 +36,11 @@ import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.bean.Result;
 import com.example.a60440.collegestudent.bean.User;
 import com.example.a60440.collegestudent.fragment.FriendFragment;
+import com.example.a60440.collegestudent.fragment.questionFragment.AddQuestionFragment;
 import com.example.a60440.collegestudent.fragment.questionFragment.QuestionContent;
 import com.example.a60440.collegestudent.fragment.questionFragment.QuestionFragment;
 import com.example.a60440.collegestudent.fragment.VedioFragment;
+import com.example.a60440.collegestudent.loader.NormalImageLoader;
 import com.example.a60440.collegestudent.requestServes.AddVideoServes;
 import com.example.a60440.collegestudent.requestServes.FileRequestBody;
 import com.example.a60440.collegestudent.requestServes.ImageUploadServes;
@@ -46,6 +49,7 @@ import com.example.a60440.collegestudent.utils.ImageUtils;
 import com.example.a60440.collegestudent.utils.UserUtils;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import okhttp3.MediaType;
@@ -56,6 +60,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import static android.view.KeyEvent.KEYCODE_BACK;
 
@@ -86,12 +91,16 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         initView();
 
-        Intent intent = this.getIntent();
-        user = (User) intent.getSerializableExtra("User");
-        if(user!=null){
-            //...
-            UserUtils.setParam(getBaseContext(),user);
-        }
+//        Intent intent = this.getIntent();
+        user = UserUtils.getParam(getApplicationContext());
+        Log.i("user ",user.toString());
+//        user = (User) intent.getSerializableExtra("User");
+//        if(user!=null){
+//            //...
+
+
+//            UserUtils.setParam(getBaseContext(),user);
+//        }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initEvent();
@@ -107,6 +116,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
         userImageView=(ImageView)view.findViewById(R.id.imageView);
+        new NormalImageLoader().getPicture(user.getImageURL(),userImageView);
         userImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -291,28 +301,28 @@ public class MainActivity extends AppCompatActivity
                 toolbar.inflateMenu(R.menu.main_friend);
                 break;
             case 3:
-//                if(mTabAdd==null){
-//                    currentFragmentId = 3;
-//                    mTabAdd= new AddQuestionFragment();
-//                    transaction.add(R.id.id_content,mTabAdd);
-//                }else{
-//                    currentFragmentId = 3;
-//                    transaction.show(mTabAdd);
-//                }
-                break;
-            case 4:
-                if(mTabContent==null){
-                    currentFragmentId = 4;
-                    mTabContent= new QuestionContent();
-
-                    transaction.add(R.id.id_content,mTabContent);
+                if(mTabAdd==null){
+                    currentFragmentId = 3;
+                    mTabAdd= new AddQuestionFragment();
+                    transaction.add(R.id.id_content,mTabAdd);
                 }else{
-                    currentFragmentId = 4;
-                    transaction.show(mTabContent);
+                    currentFragmentId = 3;
+                    transaction.show(mTabAdd);
                 }
-                toolbar.getMenu().clear();
-                toolbar.inflateMenu(R.menu.main_question);
                 break;
+//            case 4:
+//                if(mTabContent==null){
+//                    currentFragmentId = 4;
+//                    mTabContent= new QuestionContent();
+//
+//                    transaction.add(R.id.id_content,mTabContent);
+//                }else{
+//                    currentFragmentId = 4;
+//                    transaction.show(mTabContent);
+//                }
+//                toolbar.getMenu().clear();
+//                toolbar.inflateMenu(R.menu.main_question);
+//                break;
             default:break;
         }
         if(toolbar.getMenu()!=null)
@@ -330,8 +340,8 @@ public class MainActivity extends AppCompatActivity
             transaction.hide(mTab03);
         if(mTabAdd!=null)
             transaction.hide(mTabAdd);
-        if(mTabContent!=null)
-            transaction.hide(mTabContent);
+//        if(mTabContent!=null)
+//            transaction.hide(mTabContent);
     }
     @Override
     public void onClick(View v) {
@@ -358,14 +368,14 @@ public class MainActivity extends AppCompatActivity
         }
         return super.onKeyDown(keyCode, event);
     }
-    private void saveUserInfo(User user){
-        if(user==null){
-            return;
-        }else {
-            UserUtils.setParam(getApplicationContext(),user);
-        }
-
-    }
+//    private void saveUserInfo(User user){
+//        if(user==null){
+//            return;
+//        }else {
+//            UserUtils.setParam(getApplicationContext(),user);
+//        }
+//
+//    }
     /**
      * 显示修改头像的对话框
      */
@@ -444,6 +454,7 @@ public class MainActivity extends AppCompatActivity
                         public void onFailure(Call<String> call, Throwable t) {
                             Log.i("add video ","fail");
                             progressDialog.dismiss();
+                            t.printStackTrace();
 
                         }
 
@@ -467,12 +478,15 @@ public class MainActivity extends AppCompatActivity
                     FileRequestBody<User> body = new FileRequestBody(requestBody,callbcak);
                     MultipartBody.Part part = MultipartBody.Part.createFormData(file.getName(),file.getName(),body);
                     Log.i("file name",file.getName());
+
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(getResources().getString(R.string.baseURL))
                             .addConverterFactory(GsonConverterFactory.create())
+                            .addConverterFactory(ScalarsConverterFactory.create())
                             .build();
                     AddVideoServes addVideoServes = retrofit.create(AddVideoServes.class);
-                    Call<String> call = addVideoServes.upload(UserUtils.getParam(getApplicationContext()).getId(),part);
+                    Log.i("user id",user.getId()+"");
+                    Call<String> call = addVideoServes.upload(user.getId()+"",part);
                     call.enqueue(callbcak);
 
                     break;
@@ -534,36 +548,40 @@ public class MainActivity extends AppCompatActivity
         // 注意这里得到的图片已经是圆形图片了
         // bitmap是没有做个圆形处理的，但已经被裁剪了
 
-        String imagePath = ImageUtils.savePhoto(bitmap, Environment
-                .getExternalStorageDirectory().getAbsolutePath(), String
-                .valueOf(System.currentTimeMillis()));
-        Log.e("imagePath", imagePath+"");
-        if(imagePath != null){
+//        String imagePath = ImageUtils.savePhoto(bitmap, Environment
+//                .getExternalStorageDirectory().getAbsolutePath(), String
+//                .valueOf(System.currentTimeMillis()));
+//        Log.e("imagePath", imagePath+"");
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        //iv_photo.setDrawingCacheEnabled(true);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+
+        RequestBody body = RequestBody.create(MediaType.parse("*.png"), outputStream.toByteArray());
             // 拿着imagePath上传了
             // ...
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(getResources().getString(R.string.baseURL))
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            ImageUploadServes imageUploadServes = retrofit.create(ImageUploadServes.class);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.baseURL))
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+        ImageUploadServes imageUploadServes = retrofit.create(ImageUploadServes.class);
 
-            File imageFile = new File(imagePath);
-            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart"),imageFile);
-            Call<Result> call = imageUploadServes.uploadImage(user.getId(),requestBody);
-            call.enqueue(new Callback<Result>() {
-                @Override
-                public void onResponse(Call<Result> call, Response<Result> response) {
-                    Log.i("uploader iamge:=","succeed");
-                }
+        Call<String> call = imageUploadServes.uploadImage(user.getId()+"",body);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.i("uploader image","success");
+                user.setImageURL(response.body().toString());
+                UserUtils.setParam(getApplicationContext(),user);
+            }
 
-                @Override
-                public void onFailure(Call<Result> call, Throwable t) {
-                    Log.i("uploader iamge:=","fail");
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.i("uploader iamge:=","fail");
 
-                }
-            });
+            }
+        });
 
 
-        }
+
     }
 }

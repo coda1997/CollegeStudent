@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.activity.MainActivity;
 import com.example.a60440.collegestudent.bean.User;
 import com.example.a60440.collegestudent.requestServes.RequestServes;
 import com.example.a60440.collegestudent.requestServes.UpdateInfoServes;
@@ -27,11 +28,11 @@ public class UserUtils {
     private static final String FILE_NAME = "usrInfo";
 
 
-    public static void setParam(Context context ,User user){
+    public static void setParam(Context context , final User user){
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("id",(String)user.getId());
+        editor.putInt("id", user.getId());
         editor.putString("username", (String)user.getUsername());
         editor.putString("password", (String)user.getPassword());
         editor.putString("identity", (String)user.getIdentity());
@@ -52,7 +53,6 @@ public class UserUtils {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(context.getResources().getString(R.string.baseURL))
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
                 .build();
         UpdateInfoServes updateInfoServes = retrofit.create(UpdateInfoServes.class);
         Call<String> call = updateInfoServes.getString(user.getId(),user.getNickname(),
@@ -82,7 +82,7 @@ public class UserUtils {
         User user = new User();
         user.setUsername(sp.getString("username","nonexist"));
         user.setPassword(sp.getString("password","nonexist"));
-        user.setId(sp.getString("id","nonexist"));
+        user.setId(sp.getInt("id",0));
         user.setIdentity(sp.getString("identity","nonexist"));
         user.setNickname(sp.getString("nickname","nonexist"));
         user.setEmail(sp.getString("email","nonexist"));

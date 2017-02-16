@@ -36,7 +36,7 @@ public class AddQuestionFragment extends Fragment {
     EditText questionEdit;
     @OnClick(R.id.id_Button_submit_question)
     void setSubmitButton(){
-
+        submit();
     }
     @Bind(R.id.id_add_question_content)
     EditText contentEditView;
@@ -56,32 +56,32 @@ public class AddQuestionFragment extends Fragment {
         super.onHiddenChanged(hidden);
     }
 
-//    private void submit() {
-//        Retrofit retorfit = new Retrofit.Builder()
-//                .baseUrl(getResources().getString(R.string.baseURL))
-//                .addConverterFactory(ScalarsConverterFactory.create())
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        AddQuestionRequestServes addQuestionRequestServes = retorfit.create(AddQuestionRequestServes.class);
-//        Call<String> call = addQuestionRequestServes.getString(UserUtils.getParam(getContext()).getId(),);
-//        Log.i("Addquestion",questionEdit.getText().toString()+contentEditView.getText().toString());
-//        call.enqueue(new Callback<String>() {
-//            @Override
-//            public void onResponse(Call<String> call, Response<String> response) {
-//                Log.i("addquestion","succeed");
-//                if(getActivity() instanceof MainActivity){
-//                    ((MainActivity) getActivity()).setSelect(0);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<String> call, Throwable t) {
-//                Log.i("addquestion","fail");
-//
-//            }
-//        });
+    private void submit() {
+        Retrofit retorfit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.baseURL))
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        AddQuestionRequestServes addQuestionRequestServes = retorfit.create(AddQuestionRequestServes.class);
+        Call<String> call = addQuestionRequestServes.submitQuestion(questionEdit.getText().toString(),contentEditView.getText().toString(),false,UserUtils.getParam(getContext()).getId());
+        Log.i("Addquestion",questionEdit.getText().toString()+contentEditView.getText().toString());
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.i("addquestion","succeed");
+                if(getActivity() instanceof MainActivity){
+                    ((MainActivity) getActivity()).setSelect(0);
+                }
+            }
 
-//    }
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.i("addquestion","fail");
+
+            }
+        });
+
+    }
 
 
 }

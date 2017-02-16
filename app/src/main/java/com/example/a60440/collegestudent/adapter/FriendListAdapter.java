@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.listener.MyItemClickListener;
 import com.example.a60440.collegestudent.loader.NormalImageLoader;
-import com.example.a60440.collegestudent.utils.FriendsInfo;
+import com.example.a60440.collegestudent.bean.FriendsInfo;
 
 import java.util.ArrayList;
 

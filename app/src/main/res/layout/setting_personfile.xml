@@ -19,11 +19,12 @@
         <LinearLayout style="@style/top_layout">
             <TextView style="@style/usertext" android:text="头像" />
             <!--<ImageView style="@style/img_arrow"/>-->
-            <com.example.a60440.collegestudent.view.RoundCornerImageView
+            <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_arrow_down_blue_grey_300_18dp"
                 android:id="@+id/id_setting_personfile_image"
+                android:background="@color/White"
                 />
         </LinearLayout>
         <View style="@style/bg_line"/>

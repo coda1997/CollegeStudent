@@ -89,10 +89,11 @@ public class LoginActivity extends Activity {
                 Gson gson = new Gson();
                 User user = gson.fromJson(response.body(), User.class);
                 if (user != null) {
+                    UserUtils.setParam(getApplicationContext(),user);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("User", user);
-                    intent.putExtras(bundle);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("User", user);
+//                    intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
                     //something to do

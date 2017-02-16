@@ -27,7 +27,7 @@
     <color name="result_view">#b0000000</color>
     <color name="gray">#AFAFAF</color>
     <color name="yellow">#F99503</color>
-
+    <color name="light_grey">#f1f1f1</color>
     <color name="orange">#ff9900</color>
     <color name="deepcolor">#faaa5f</color>
     <color name="shadowcolor">#333333</color>

@@ -13,7 +13,11 @@ import retrofit2.http.Query;
 public interface AddQuestionRequestServes {
     @POST("servlet/AddQuestionServlet")
     @FormUrlEncoded
-    Call<String> getString(@Field("userId") String id,
+    Call<String> getString(@Field("userId") int id,
             @Field("question") String question
                            );
+
+    @POST("servlet/AddQuestionServlet")
+    @FormUrlEncoded
+    Call<String> submitQuestion(@Field("title") String title,@Field("content") String content,@Field("anonymous") boolean anonymous,@Field("id")int id);
 }

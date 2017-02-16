@@ -8,14 +8,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.adapter.VideoManagementAdapter;
 import com.example.a60440.collegestudent.configuration.BaseConfiguration;
 import com.example.a60440.collegestudent.listener.MyItemClickListener;
-import com.example.a60440.collegestudent.utils.FriendsInfo;
-import com.example.a60440.collegestudent.utils.VideoInfo;
+import com.example.a60440.collegestudent.bean.VideoInfo;
 
 import java.util.ArrayList;
 

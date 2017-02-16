@@ -10,21 +10,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 
 import com.example.a60440.collegestudent.activity.MainActivity;
+import com.example.a60440.collegestudent.activity.QuestionContentActivity;
 import com.example.a60440.collegestudent.configuration.BaseConfiguration;
 import com.example.a60440.collegestudent.listener.MyItemClickListener;
 import com.example.a60440.collegestudent.adapter.QuesListAdapter;
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.requestServes.QuestionRequestServes;
-import com.example.a60440.collegestudent.utils.QuestionInfo;
+import com.example.a60440.collegestudent.bean.QuestionInfo;
 import com.example.a60440.collegestudent.utils.UserUtils;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 
@@ -128,8 +125,12 @@ public class QuestionFragment extends Fragment implements MyItemClickListener {
         Log.i(TAG_1," succeed "+postion);
 
         if(this.getActivity() instanceof MainActivity){
-            MainActivity mainActivity = (MainActivity) this.getActivity();
-            mainActivity.setSelect(4);
+
+            Intent intent = new Intent(getActivity(), QuestionContentActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("Question", questions.get(postion));
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     }
 

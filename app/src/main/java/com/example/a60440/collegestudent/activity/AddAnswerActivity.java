@@ -3,14 +3,12 @@ package com.example.a60440.collegestudent.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.bean.User;
 import com.example.a60440.collegestudent.requestServes.AddQuestionRequestServes;
-import com.example.a60440.collegestudent.utils.QuestionInfo;
+import com.example.a60440.collegestudent.bean.QuestionInfo;
 import com.example.a60440.collegestudent.utils.UserUtils;
 import com.google.gson.Gson;
 

@@ -14,12 +14,10 @@ import android.widget.TextView;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.listener.MyItemClickListener;
-import com.example.a60440.collegestudent.loader.NormalImageLoader;
-import com.example.a60440.collegestudent.utils.VideoInfo;
+import com.example.a60440.collegestudent.bean.VideoInfo;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
 import wseemann.media.FFmpegMediaMetadataRetriever;
 
 /**
@@ -32,6 +30,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Norm
     private MyItemClickListener myItemClickListener;
     private CardView cardView;
 
+
     public VideoListAdapter(ArrayList<VideoInfo> videoInfo,Context context){
         this.context=context;
         videos=videoInfo;
@@ -40,16 +39,16 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Norm
     @Override
     public void onBindViewHolder(NormalHolder holder, int position) {
         if(holder instanceof NormalHolder){
+
             NormalHolder normalHolder = (NormalHolder)holder;
             normalHolder.textView.setText(videos.get(position).videoTitle);
            // new NormalImageLoader().getPicture(videos.get(position).videoImage,normalHolder.imageView);
-            Log.i("video number is",videos.size()+"");
+            Log.i("video url is",videos.get(position).videoUrl);
             FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
             mmr.setDataSource(videos.get(position).videoUrl);
             mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM);
             mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST);
             Bitmap bitmap = mmr.getFrameAtTime(20000000,FFmpegMediaMetadataRetriever.OPTION_CLOSEST);
-            byte[] artwork = mmr.getEmbeddedPicture();
             normalHolder.imageView.setImageBitmap(bitmap);
             mmr.release();
 //            normalHolder.imageView

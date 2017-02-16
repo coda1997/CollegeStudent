@@ -3,7 +3,6 @@ package com.example.a60440.collegestudent.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v4.os.CancellationSignal;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,7 @@ import android.widget.TextView;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.listener.MyItemClickListener;
-import com.example.a60440.collegestudent.loader.NormalImageLoader;
-import com.example.a60440.collegestudent.utils.VideoInfo;
+import com.example.a60440.collegestudent.bean.VideoInfo;
 
 import java.util.ArrayList;
 

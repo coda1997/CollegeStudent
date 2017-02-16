@@ -94,7 +94,7 @@ public class SettingPeronFileFragment extends Fragment {
     }
 
     public void initData(Context context) {
-        new NormalImageLoader().getPicture(BaseConfiguration.imagesUrl,imageView);
+        new NormalImageLoader().getPicture(getResources().getString(R.string.baseURL)+UserUtils.getParam(getContext()).getImageURL(),imageView);
         user = UserUtils.getParam(context);
         Log.i("User information","=="+user.toString());
         if(user.getNickname()!=null)
