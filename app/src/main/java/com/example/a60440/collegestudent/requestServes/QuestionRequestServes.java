@@ -14,9 +14,9 @@ import retrofit2.http.Query;
  */
 
 public interface QuestionRequestServes {
-    @POST("servlet/GetQuestionServlet")
+    @POST("servletc/GetQuestionServlet")
     Call<String> getString(@Query("userId") int userId);
 
-    @GET("servlet/GetQuestionServlet")
+    @GET("LoadDiscoverServlet")
     Call<ArrayList<QuestionInfo>> loadDiscover(@Query("start") int start);
 }

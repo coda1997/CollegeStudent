@@ -10,11 +10,13 @@
     android:background="@color/light_grey"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.a60440.collegestudent.activity.ContactActivity"
-    tools:showIn="@layout/activity_contact">
+    tools:showIn="@layout/activity_contact"
+
+    >
 
     <RelativeLayout
         android:id="@+id/rl_friend_request"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@android:color/white"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
@@ -44,9 +46,9 @@
             android:layout_height="match_parent"/>
     </RelativeLayout>
 
-    <hl.iss.whu.edu.laboratoryproject.ui.view.AnimatedExpandableListView
+    <com.example.a60440.collegestudent.view.AnimatedExpandableListView
         android:id="@+id/aelv_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </hl.iss.whu.edu.laboratoryproject.ui.view.AnimatedExpandableListView>
+    </com.example.a60440.collegestudent.view.AnimatedExpandableListView>
 </LinearLayout>

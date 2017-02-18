@@ -45,10 +45,10 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Norm
            // new NormalImageLoader().getPicture(videos.get(position).videoImage,normalHolder.imageView);
             Log.i("video url is",videos.get(position).videoUrl);
             FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
-            mmr.setDataSource(videos.get(position).videoUrl);
+            mmr.setDataSource(context.getResources().getString(R.string.baseURL)+videos.get(position).videoUrl);
             mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM);
             mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST);
-            Bitmap bitmap = mmr.getFrameAtTime(20000000,FFmpegMediaMetadataRetriever.OPTION_CLOSEST);
+            Bitmap bitmap = mmr.getFrameAtTime(10000,FFmpegMediaMetadataRetriever.OPTION_CLOSEST);
             normalHolder.imageView.setImageBitmap(bitmap);
             mmr.release();
 //            normalHolder.imageView

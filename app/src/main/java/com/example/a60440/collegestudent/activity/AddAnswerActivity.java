@@ -1,16 +1,17 @@
 package com.example.a60440.collegestudent.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 
 import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.bean.Answer;
 import com.example.a60440.collegestudent.bean.User;
-import com.example.a60440.collegestudent.requestServes.AddQuestionRequestServes;
-import com.example.a60440.collegestudent.bean.QuestionInfo;
+import com.example.a60440.collegestudent.bean.UserInfo;
+import com.example.a60440.collegestudent.requestServes.AddAnswer;
 import com.example.a60440.collegestudent.utils.UserUtils;
-import com.google.gson.Gson;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,38 +32,11 @@ public class AddAnswerActivity extends Activity {
 //    void setBackButton(){
 //        finish();
 //    }
-
+    private int iid;
     @OnClick(R.id.id_question_submit)
     void setSubmit(){
-        QuestionInfo question = new QuestionInfo();
-        User user = UserUtils.getParam(getBaseContext());
-        question.questionerImage=user.getImageURL();
-        question.title=editText.getText().toString();
-        question.questionerName=user.getNickname();
-
-
-        // TODO: 2017/2/13
-        String answer = editText.getText().toString();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.baseURL))
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        AddQuestionRequestServes addQuestionServes = retrofit.create(AddQuestionRequestServes.class);
-        Call<String> call = addQuestionServes.getString(user.getId(),(new Gson()).toJson(question));
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.i("add question"," succeed");
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-
-            }
-        });
-
-
+        submitAnswer(iid, UserInfo.uid);
+        finish();
     }
 
     @Bind(R.id.editText_introduction)
@@ -73,13 +47,34 @@ public class AddAnswerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quesbar01);
         ButterKnife.bind(this);
-        initData();
-    }
-
-    private void initData() {
+        Intent intent = getIntent();
+        iid = intent.getIntExtra("iid",0);
 
 
     }
+
+   private void submitAnswer(final int iid,final String uid){
+       // TODO: 2017/2/13
+       Retrofit retrofit = new Retrofit.Builder()
+               .baseUrl(getResources().getString(R.string.baseURL))
+               .addConverterFactory(ScalarsConverterFactory.create())
+               .addConverterFactory(GsonConverterFactory.create())
+               .build();
+       AddAnswer addAnswer = retrofit.create(AddAnswer.class);
+       Call<String> call = addAnswer.submitAnswer(editText.getText().toString(),false,iid,uid);
+       call.enqueue(new Callback<String>() {
+           @Override
+           public void onResponse(Call<String> call, Response<String> response) {
+               Log.i("add question"," succeed");
+           }
+
+           @Override
+           public void onFailure(Call<String> call, Throwable t) {
+                t.printStackTrace();
+           }
+       });
+
+   }
 
 
 }

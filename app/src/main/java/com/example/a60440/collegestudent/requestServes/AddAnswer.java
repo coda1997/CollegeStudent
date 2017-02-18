@@ -10,14 +10,14 @@ import retrofit2.http.POST;
  */
 
 public interface AddAnswer {
-    @POST("servlet/AddAnswerServlet")
+    @POST("servletc/AddAnswerServlet")
     @FormUrlEncoded
     Call<String> getString(@Field("id") String id,
                            @Field("userId") String userId,
                            @Field("content") String content
                            );
 
-    @POST("servlet/AddAnswerServlet")
+    @POST("WriteAnswerServlet")
     @FormUrlEncoded
     Call<String> submitAnswer(@Field("content") String content,@Field("anonymous") boolean anonymous,@Field("iid") int iid,@Field("uid")String uid);
 }

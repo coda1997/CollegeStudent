@@ -9,18 +9,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.bean.Info;
+import com.example.a60440.collegestudent.layoutmanager.FullyLinearLayoutManager;
+import com.example.a60440.collegestudent.layoutmanager.QueryItem;
+import com.example.a60440.collegestudent.listener.OnRecyclerViewItemClickListener;
+import com.example.a60440.collegestudent.utils.UiUtils;
 
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
-import hl.iss.whu.edu.laboratoryproject.R;
-import hl.iss.whu.edu.laboratoryproject.constant.Constant;
-import hl.iss.whu.edu.laboratoryproject.entity.Info;
-import hl.iss.whu.edu.laboratoryproject.entity.QueryItem;
-import hl.iss.whu.edu.laboratoryproject.listener.OnRecyclerViewItemClickListener;
-import hl.iss.whu.edu.laboratoryproject.manager.FullyLinearLayoutManager;
-import hl.iss.whu.edu.laboratoryproject.utils.UiUtils;
-import hl.iss.whu.edu.laboratoryproject.utils.UserInfo;
+
 
 /**
  * Created by fate on 2017/2/10.

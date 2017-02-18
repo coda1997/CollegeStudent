@@ -2,13 +2,31 @@ package com.example.a60440.collegestudent.bean;
 
 import android.net.Uri;
 
+import com.example.a60440.collegestudent.configuration.Constant;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+
 /**
- * Created by mrwen on 2017/2/16.
+ * Created by fate on 2016/11/21.
  */
 
 public class UserInfo {
-    public static Uri getPrivateChatUri(String uid, String title) {
-        return Uri.parse("rong://hl.iss.whu.edu.laboratoryproject/conversation/private?targetId=" + uid + "&title=" + title);
+    public static int id;
+    public static String uid;
+    public static String username;
+    public static String imageURL;
+    public static String nickname;
+    public static String signiture;
+    public static String token;
+
+    public static ArrayList<String> groupNames = new ArrayList<>();
+    public static Uri getPrivateChatUri(String uid,String title){
+        return Uri.parse(Constant.URI_CONVERSATION_PRIVATE+uid+"&title="+title);
     }
     public static String getIdentity(String uid){
         String identity = "";
@@ -30,4 +48,5 @@ public class UserInfo {
         }
         return identity;
     }
+
 }

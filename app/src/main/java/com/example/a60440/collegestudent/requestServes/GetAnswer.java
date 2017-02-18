@@ -1,11 +1,11 @@
 package com.example.a60440.collegestudent.requestServes;
 
-import com.example.a60440.collegestudent.bean.AnswerInfo;
+import com.example.a60440.collegestudent.bean.Answer;
 
 import java.util.ArrayList;
 
 import retrofit2.Call;
-import retrofit2.http.POST;
+import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 /**
@@ -13,6 +13,7 @@ import retrofit2.http.Query;
  */
 
 public interface GetAnswer {
-    @POST("servlet/GetAnswerServlet")
-    Call<ArrayList<AnswerInfo>> loadAnswers(@Query("iid") String iid);
+    @GET("LoadAnswersServlet")
+    Call<ArrayList<Answer>> loadAnswers(@Query("iid") int iid);
 }
+

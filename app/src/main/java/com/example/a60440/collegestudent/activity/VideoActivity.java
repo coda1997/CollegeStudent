@@ -119,7 +119,7 @@ public class VideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vedio_main);
         Intent intent = getIntent();
-        videoUrl = intent.getStringExtra("videoUrl");
+        videoUrl = getResources().getString(R.string.baseURL)+intent.getStringExtra("videoUrl");
         ButterKnife.bind(this);
 
         Vitamio.initialize(this);

@@ -1,6 +1,7 @@
 package com.example.a60440.collegestudent.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by 60440 on 2017/2/8.
@@ -13,22 +14,46 @@ public class QuestionInfo implements Serializable{
     public String content;
     public String foucusnumber;
     public String questionerName;
+    private int answerNumber;
+    private boolean anonymous;
+    private User user;
 
-    public String getDate() {
-        return date;
+    public boolean isAnonymous() {
+        return anonymous;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setAnonymous(boolean anonymous) {
+        this.anonymous = anonymous;
     }
 
-    public String getFoucusnumber() {
-        return foucusnumber;
+    public int getAnswerNumber() {
+        return answerNumber;
     }
 
-    public void setFoucusnumber(String foucusnumber) {
-        this.foucusnumber = foucusnumber;
+    public void setAnswerNumber(int answerNumber) {
+        this.answerNumber = answerNumber;
     }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    private Date time;
+
+
+
 
     public String getId() {
         return id;
@@ -38,21 +63,9 @@ public class QuestionInfo implements Serializable{
         this.id = id;
     }
 
-    public String getQuestionerImage() {
-        return questionerImage;
-    }
 
-    public void setQuestionerImage(String questionerImage) {
-        this.questionerImage = questionerImage;
-    }
 
-    public String getQuestionerName() {
-        return questionerName;
-    }
 
-    public void setQuestionerName(String questionerName) {
-        this.questionerName = questionerName;
-    }
 
     public String getTitle() {
         return title;

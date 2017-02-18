@@ -12,7 +12,15 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface VideoServes {
-    @POST("servlet/GetVideoServlet")
+    @POST("servletc/GetVideoServlet")
     Call<List<VideoInfo>> getString(@Query("userId") int userId);
+
+    @POST("servletc/GetMyVideoServlet")
+    Call<List<VideoInfo>> getMyVideo(@Query("userid") String id);
+
+    @POST("servletc/RemoveVideoServlet")
+    Call<String> deleteVideo(@Query("videoId") String id,
+                             @Query("videoUrl") String videoUrl
+                             );
 
 }

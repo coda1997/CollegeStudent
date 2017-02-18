@@ -19,10 +19,10 @@ import retrofit2.http.Query;
 
 public interface AddVideoServes {
     @Multipart
-    @POST("servlet/AddVideoServlet")
+    @POST("servletc/AddVideoServlet")
     Call<String> upload(
             @Part("userId") String id,
             @Part MultipartBody.Part file);
-    @POST("servlet/AddVideoPlayNumber")
+    @POST("servletc/AddVideoPlayNumber")
     Call<String> addVideoPlayNumber(@Query("videoId") int id);
 }

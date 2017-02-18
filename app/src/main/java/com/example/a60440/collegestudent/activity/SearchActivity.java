@@ -2,7 +2,6 @@ package com.example.a60440.collegestudent.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,14 +23,22 @@ import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.adapter.RecyclerQueryContactAdapter;
 import com.example.a60440.collegestudent.adapter.RecyclerQueryResultAdapter;
 import com.example.a60440.collegestudent.bean.Info;
+import com.example.a60440.collegestudent.bean.Result;
 import com.example.a60440.collegestudent.bean.UserInfo;
 import com.example.a60440.collegestudent.layoutmanager.QueryItem;
+import com.example.a60440.collegestudent.requestServes.ContantServes;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 
 public class SearchActivity extends AppCompatActivity {
@@ -76,6 +83,25 @@ public class SearchActivity extends AppCompatActivity {
 //
 //                    }
 //                });
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.baseURL))
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ContantServes contantServes = retrofit.create(ContantServes.class);
+        Call<ArrayList<QueryItem>> call = contantServes.queryContacts(UserInfo.uid,query);
+        call.enqueue(new Callback<ArrayList<QueryItem>>() {
+            @Override
+            public void onResponse(Call<ArrayList<QueryItem>> call, Response<ArrayList<QueryItem>> response) {
+                mAdapter.setData(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<QueryItem>> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void initView() {
@@ -137,26 +163,51 @@ public class SearchActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(s.trim()))
             s = info.getNickname();
         Log.i("uid", "addFriend: "+ UserInfo.uid);
-        RetrofitUtils.getService().requestFriend(info.getUid(),UserInfo.uid,group,s,message)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Result>() {
-                    @Override
-                    public void accept(Result result) throws Exception {
-                        if (result.getCode() == 0) {
-                            holder.showAdded();
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        new AlertDialog.Builder(SearchActivity.this)
-                                .setMessage("添加失败"+throwable)
-                                .setPositiveButton("确定",null)
-                                .show();
-                        holder.showAddFriend();
-                    }
-                });
+//        RetrofitUtils.getService().requestFriend(info.getUid(),UserInfo.uid,group,s,message)
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<Result>() {
+//                    @Override
+//                    public void accept(Result result) throws Exception {
+//                        if (result.getCode() == 0) {
+//                            holder.showAdded();
+//                        }
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        new AlertDialog.Builder(SearchActivity.this)
+//                                .setMessage("添加失败"+throwable)
+//                                .setPositiveButton("确定",null)
+//                                .show();
+//                        holder.showAddFriend();
+//                    }
+//                });
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.baseURL))
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ContantServes contantServes = retrofit.create(ContantServes.class);
+        Call<Result> call = contantServes.requestFriend(info.getUid(),UserInfo.uid,group,s,message);
+        call.enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                if (response.body().getCode() == 0) {
+                    holder.showAdded();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                new AlertDialog.Builder(SearchActivity.this)
+                        .setMessage("添加失败"+t)
+                        .setPositiveButton("确定",null)
+                        .show();
+                holder.showAddFriend();
+            }
+        });
+        //// TODO: 2017/2/16  
     }
 
     private View initDialogView() {
@@ -187,21 +238,40 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void getGroupNames() {
-        RetrofitUtils.getService().getGroupNames(UserInfo.uid)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ArrayList<String>>() {
-                    @Override
-                    public void accept(ArrayList<String> strings) throws Exception {
-                        UserInfo.groupNames = strings;
-                        mArrayAdapter.addAll(strings);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Toast.makeText(SearchActivity.this, "获取组信息失败"+throwable, Toast.LENGTH_SHORT).show();
-                    }
-                });
+//        RetrofitUtils.getService().getGroupNames(UserInfo.uid)
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<ArrayList<String>>() {
+//                    @Override
+//                    public void accept(ArrayList<String> strings) throws Exception {
+//                        UserInfo.groupNames = strings;
+//                        mArrayAdapter.addAll(strings);
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        Toast.makeText(SearchActivity.this, "获取组信息失败"+throwable, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.baseURL))
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ContantServes contantServes=retrofit.create(ContantServes.class);
+        Call<ArrayList<String>> call = contantServes.getGroupNames(UserInfo.uid);
+        call.enqueue(new Callback<ArrayList<String>>() {
+            @Override
+            public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
+                UserInfo.groupNames = response.body();
+                mArrayAdapter.addAll(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<String>> call, Throwable t) {
+                Toast.makeText(SearchActivity.this, "获取组信息失败"+t, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

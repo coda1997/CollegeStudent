@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.bean.Answer;
 import com.example.a60440.collegestudent.requestServes.GetAnswer;
-import com.example.a60440.collegestudent.bean.AnswerInfo;
 import com.example.a60440.collegestudent.bean.QuestionInfo;
 
 import java.util.ArrayList;
@@ -46,15 +46,15 @@ public class QuestionContent extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         GetAnswer getAnswer = retrofit.create(GetAnswer.class);
-        Call<ArrayList<AnswerInfo>> call = getAnswer.loadAnswers(questionInfo.id);
-        call.enqueue(new Callback<ArrayList<AnswerInfo>>() {
+        Call<ArrayList<Answer>> call = getAnswer.loadAnswers(Integer.parseInt(questionInfo.id));
+        call.enqueue(new Callback<ArrayList<Answer>>() {
             @Override
-            public void onResponse(Call<ArrayList<AnswerInfo>> call, Response<ArrayList<AnswerInfo>> response) {
+            public void onResponse(Call<ArrayList<Answer>> call, Response<ArrayList<Answer>> response) {
                 Log.e("==","return: "+response.body().toString());//response is question content
             }
 
             @Override
-            public void onFailure(Call<ArrayList<AnswerInfo>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Answer>> call, Throwable t) {
                 Log.e("===","fail");
             }
         });

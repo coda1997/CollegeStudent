@@ -15,7 +15,7 @@ import retrofit2.http.Part;
  */
 
 public interface ImageUploadServes {
-    @POST("servlet/ImageServlet")
+    @POST("servletc/ImageServlet")
     @Multipart
     Call<String> uploadImage(@Part("fileName") String uid , @Part("file\";filename=\"1.jpg") RequestBody file);
 }

@@ -22,9 +22,10 @@
         android:id="@+id/id_content"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.92"
+        android:background="@color/white"
         >
     </FrameLayout>
 
-    <include layout="@layout/top1" />
+
 </LinearLayout>

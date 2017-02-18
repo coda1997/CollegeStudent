@@ -49,6 +49,7 @@ public class UserUtils {
         editor.putString("major",(String)user.getMajor());
         editor.putString("gender",(String)user.getGender());
         editor.putString("introduction",(String)user.getIntroduction());
+        editor.putString("token",(String)user.getToken());
         editor.commit();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(context.getResources().getString(R.string.baseURL))
@@ -97,6 +98,7 @@ public class UserUtils {
         user.setMajor(sp.getString("major","nonexist"));
         user.setGender(sp.getString("gender","男"));
         user.setIntroduction(sp.getString("introduction","nonexist"));
+        user.setToken(sp.getString("token","noexist"));
         return user;
     }
 }

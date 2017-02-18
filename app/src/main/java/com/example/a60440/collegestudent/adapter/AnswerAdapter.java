@@ -10,10 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.bean.Answer;
 import com.example.a60440.collegestudent.listener.MyItemClickListener;
-import com.example.a60440.collegestudent.bean.AnswerInfo;
-import com.example.a60440.collegestudent.bean.QuestionInfo;
+import com.example.a60440.collegestudent.loader.NormalImageLoader;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -24,9 +25,9 @@ public class AnswerAdapter extends RecyclerView.Adapter {
     private Context context;
     private MyItemClickListener myItemClickListener;
     private Activity activity;
-    private ArrayList<AnswerInfo> answers;
-
-    public AnswerAdapter(ArrayList<AnswerInfo> answers,Context context){
+    private ArrayList<Answer> answers;
+ private SimpleDateFormat format = new SimpleDateFormat("MM月dd日");
+    public AnswerAdapter(ArrayList<Answer> answers,Context context){
         this.answers=answers;
         this.context=context;
 
@@ -47,12 +48,22 @@ public class AnswerAdapter extends RecyclerView.Adapter {
         if(holder instanceof AnswerHolder){
             AnswerHolder answerHolder = (AnswerHolder)holder;
 //// TODO: 2017/2/16
+            Answer answer = answers.get(position);
+            answerHolder.contentTextView.setText(answer.getContent());
+            answerHolder.likeNumTextView.setText(answer.getAgree()+"人赞同");
+
+            String time = this.format.format(answer.getTime());
+            answerHolder.timeTextView.setText(time);
+            answerHolder.answerNameTextView.setText(answer.getAnswerer().getNickname());
+            new NormalImageLoader().getPicture(context.getResources().getString(R.string.baseURL)+ answer.getAnswerer().getImageURL(),answerHolder.answerImageView);
+
+
         }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return answers.size();
     }
     public void setOnItemClickListener(MyItemClickListener listener){
         this.myItemClickListener = listener;
@@ -65,11 +76,7 @@ public class AnswerAdapter extends RecyclerView.Adapter {
         TextView timeTextView;
         ImageView answerImageView;
         TextView answerNameTextView;
-//        public String answerContent;
-//        public String peopleNum;
-//        public String userImage;
-//        public String userName;
-//        public String likeNum;
+
         public AnswerHolder(View itemView, MyItemClickListener listener){
             super(itemView);
             contentTextView=(TextView)itemView.findViewById(R.id.tv_answer_content);

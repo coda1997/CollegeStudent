@@ -1,9 +1,7 @@
 package com.example.a60440.collegestudent.bean;
 
-import com.google.android.gms.ads.identifier.AdvertisingIdClient;
-
-import java.util.ArrayList;
-import java.util.Date;
+ import java.util.ArrayList;
+ import java.util.Date;
 
 /**
  * Created by fate on 2016/12/9.
@@ -13,9 +11,19 @@ public class Answer {
 
     private int id;
     private String content;
+    private Info answerer;
     private boolean anonymous;
     private Date time;
     private int agree;
+    private QuestionInfo issue;
+
+    public QuestionInfo getIssue() {
+        return issue;
+    }
+
+    public void setIssue(QuestionInfo issue) {
+        this.issue = issue;
+    }
 
     public int getId() {
         return id;
@@ -50,7 +58,13 @@ public class Answer {
         this.content = content;
     }
 
+    public Info getAnswerer() {
+        return answerer;
+    }
 
+    public void setAnswerer(Info answerer) {
+        this.answerer = answerer;
+    }
 
     public boolean isAnonymous() {
         return anonymous;

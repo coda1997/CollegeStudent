@@ -8,6 +8,15 @@ import java.io.Serializable;
 
 public class User implements Serializable{
     private int id;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     private String identity;
     private String username;

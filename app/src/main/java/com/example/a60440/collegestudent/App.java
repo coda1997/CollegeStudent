@@ -1,4 +1,4 @@
-package com.example.a60440.collegestudent.application;
+package com.example.a60440.collegestudent;
 
 import android.content.Context;
 import android.os.Handler;

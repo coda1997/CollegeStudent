@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,13 +49,15 @@ public class VideoManagementAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof VideoManagementHolder){
             VideoManagementHolder videoManagementHolder = (VideoManagementHolder) holder;
-            videoManagementHolder.videoName.setText(videos.get(position).videoTitle);
+            VideoInfo videoInfo = videos.get(position);
+            videoManagementHolder.videoName.setText(videoInfo.videoTitle);
+            Log.i("video manage",videoInfo.toString());
             //new NormalImageLoader().getPicture(videos.get(position).videoImage,videoManagementHolder.videoImg);
             FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
-            mmr.setDataSource(videos.get(position).videoUrl);
+            mmr.setDataSource(context.getResources().getString(R.string.baseURL)+ videoInfo.videoUrl);
             mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM);
             mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST);
-            Bitmap bitmap = mmr.getFrameAtTime(20000000,FFmpegMediaMetadataRetriever.OPTION_CLOSEST);
+            Bitmap bitmap = mmr.getFrameAtTime(10000,FFmpegMediaMetadataRetriever.OPTION_CLOSEST);
 //            byte[] artwork = mmr.getEmbeddedPicture();
             videoManagementHolder.videoImg.setImageBitmap(bitmap);
             mmr.release();

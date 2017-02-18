@@ -29,12 +29,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.bean.Result;
 import com.example.a60440.collegestudent.bean.User;
+import com.example.a60440.collegestudent.bean.UserInfo;
 import com.example.a60440.collegestudent.fragment.FriendFragment;
 import com.example.a60440.collegestudent.fragment.questionFragment.AddQuestionFragment;
 import com.example.a60440.collegestudent.fragment.questionFragment.QuestionContent;
@@ -46,12 +48,15 @@ import com.example.a60440.collegestudent.requestServes.FileRequestBody;
 import com.example.a60440.collegestudent.requestServes.ImageUploadServes;
 import com.example.a60440.collegestudent.requestServes.RetrofitCallbcak;
 import com.example.a60440.collegestudent.utils.ImageUtils;
+import com.example.a60440.collegestudent.utils.MyDialog;
 import com.example.a60440.collegestudent.utils.UserUtils;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 
+import io.rong.imkit.fragment.ConversationListFragment;
+import io.rong.imlib.model.Conversation;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -71,7 +76,7 @@ public class MainActivity extends AppCompatActivity
     private LinearLayout mTabVideo;
     private Fragment mTab01;
     private Fragment mTab02;
-    private Fragment mTab03;
+    private ConversationListFragment mTab03;
     private Fragment mTabAdd;
     private Fragment mTabContent;
     private int currentFragmentId = 0;
@@ -85,22 +90,18 @@ public class MainActivity extends AppCompatActivity
     private static final int TAKE_VIDEO = 3;
     protected static Uri tempUri;
     private ProgressDialog progressDialog;
+    private ImageView questionImageView;
+    private ImageView friendImageView;
+    private ImageView videoImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-
-//        Intent intent = this.getIntent();
+        Log.i("uid = ", UserInfo.uid);
         user = UserUtils.getParam(getApplicationContext());
         Log.i("user ",user.toString());
-//        user = (User) intent.getSerializableExtra("User");
-//        if(user!=null){
-//            //...
 
-
-//            UserUtils.setParam(getBaseContext(),user);
-//        }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initEvent();
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
         userImageView=(ImageView)view.findViewById(R.id.imageView);
-        new NormalImageLoader().getPicture(user.getImageURL(),userImageView);
+        new NormalImageLoader().getPicture(getResources().getString(R.string.baseURL)+user.getImageURL(),userImageView);
         userImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,9 +140,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        searchView.setMenuItem(item);
-
 
         return true;
     }
@@ -153,11 +151,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if(id == R.id.action_adding){
-            setSelect(3);
-            return true;
-        }else if(id==R.id.id_sharing){
+        if(id==R.id.id_sharing){
             return true;
         }else if(id==R.id.id_video_adding){
             Intent innerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
@@ -170,10 +164,10 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this,VedioManegerActivity.class);
             startActivity(intent);
             return true;
-        }else if(id==R.id.chatting_adding_friends){
-
-        }else if(id==R.id.chatting_adding_class){
-
+        }else if(id == R.id.action_my_contact){
+            Intent intent = new Intent(this,ContactActivity.class);
+            startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -216,33 +210,36 @@ public class MainActivity extends AppCompatActivity
         mTabQuestion = (LinearLayout)findViewById(R.id.id_tab_question);
         mTabVideo = (LinearLayout)findViewById(R.id.id_tab_vedio);
         mTabFriend = (LinearLayout)findViewById(R.id.id_tab_friend);
+        questionImageView=(ImageView)findViewById(R.id.id_tab_quesion_img);
+        videoImageView=(ImageView)findViewById(R.id.id_tab_vedio_img);
+        friendImageView=(ImageView)findViewById(R.id.id_tab_friend_img);
 
-        searchView=(MaterialSearchView)findViewById(R.id.id_search_view);
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //Do some magic
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //Do some magic
-                return false;
-            }
-        });
-
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                //Do some magic
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                //Do some magic
-            }
-        });
+//        searchView=(MaterialSearchView)findViewById(R.id.id_search_view);
+//        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                //Do some magic
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                //Do some magic
+//                return false;
+//            }
+//        });
+//
+//        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+//            @Override
+//            public void onSearchViewShown() {
+//                //Do some magic
+//            }
+//
+//            @Override
+//            public void onSearchViewClosed() {
+//                //Do some magic
+//            }
+//        });
     }
 
     public void initEvent() {
@@ -259,6 +256,8 @@ public class MainActivity extends AppCompatActivity
         hideFragment(transaction);
         switch (i){
             case 0:
+                questionImageView.setImageResource(R.drawable.ic_dns_blue_500_24dp);
+
                 if(mTab01==null){
                     mTab01 = new QuestionFragment();
 
@@ -270,10 +269,13 @@ public class MainActivity extends AppCompatActivity
                     transaction.show(mTab01);
                 }
                 //this can put a image pressed
+
                 toolbar.getMenu().clear();
                 toolbar.inflateMenu(R.menu.main);
                 break;
             case 1:
+                videoImageView.setImageResource(R.drawable.ic_ondemand_video_blue_500_24dp);
+
                 if(mTab02==null){
                     currentFragmentId = 1;
                     mTab02 = new VedioFragment();
@@ -288,10 +290,20 @@ public class MainActivity extends AppCompatActivity
 
                 break;
             case 2:
+                friendImageView.setImageResource(R.drawable.ic_supervisor_account_blue_500_24dp);
                 if(mTab03==null){
                     currentFragmentId = 2;
-                    mTab03 = new FriendFragment();
-                    transaction.add(R.id.id_content,mTab03);
+                    mTab03 = new ConversationListFragment();
+//                    transaction.add(R.id.id_content,mTab03);
+                    Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
+                            .appendPath("conversationlist")
+                            .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //设置私聊会话，该会话聚合显示
+                            .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false")//设置群组会话，该会话非聚合显示
+                            .appendQueryParameter(Conversation.ConversationType.DISCUSSION.getName(), "false")//设置群组会话，该会话非聚合显示
+                            .build();
+                    mTab03.setUri(uri);
+                    transaction.add(R.id.content_main, mTab03);
+
                 }else{
                     currentFragmentId = 2;
                     transaction.show(mTab03);
@@ -300,48 +312,26 @@ public class MainActivity extends AppCompatActivity
                 toolbar.getMenu().clear();
                 toolbar.inflateMenu(R.menu.main_friend);
                 break;
-            case 3:
-                if(mTabAdd==null){
-                    currentFragmentId = 3;
-                    mTabAdd= new AddQuestionFragment();
-                    transaction.add(R.id.id_content,mTabAdd);
-                }else{
-                    currentFragmentId = 3;
-                    transaction.show(mTabAdd);
-                }
-                break;
-//            case 4:
-//                if(mTabContent==null){
-//                    currentFragmentId = 4;
-//                    mTabContent= new QuestionContent();
-//
-//                    transaction.add(R.id.id_content,mTabContent);
-//                }else{
-//                    currentFragmentId = 4;
-//                    transaction.show(mTabContent);
-//                }
-//                toolbar.getMenu().clear();
-//                toolbar.inflateMenu(R.menu.main_question);
-//                break;
             default:break;
         }
-        if(toolbar.getMenu()!=null)
-            searchView.setMenuItem(toolbar.getMenu().findItem(R.id.action_search));
 
         transaction.commit();
 
     }
     private void hideFragment(FragmentTransaction transaction){
-        if(mTab01 != null)
+        if(mTab01 != null){
+            questionImageView.setImageResource(R.drawable.ic_dns_grey_500_24dp);
             transaction.hide(mTab01);
-        if(mTab02 != null)
+        }
+        if(mTab02 != null){
+            videoImageView.setImageResource(R.drawable.ic_ondemand_video_grey_500_24dp);
             transaction.hide(mTab02);
-        if(mTab03 != null)
+        }
+        if(mTab03 != null){
+            friendImageView.setImageResource(R.drawable.ic_supervisor_account_grey_500_24dp);
             transaction.hide(mTab03);
-        if(mTabAdd!=null)
-            transaction.hide(mTabAdd);
-//        if(mTabContent!=null)
-//            transaction.hide(mTabContent);
+        }
+
     }
     @Override
     public void onClick(View v) {
@@ -353,6 +343,7 @@ public class MainActivity extends AppCompatActivity
                 setSelect(1);
                 break;
             case R.id.id_tab_friend:
+
                 setSelect(2);
                 break;
             default:break;
@@ -368,14 +359,7 @@ public class MainActivity extends AppCompatActivity
         }
         return super.onKeyDown(keyCode, event);
     }
-//    private void saveUserInfo(User user){
-//        if(user==null){
-//            return;
-//        }else {
-//            UserUtils.setParam(getApplicationContext(),user);
-//        }
-//
-//    }
+
     /**
      * 显示修改头像的对话框
      */
@@ -432,62 +416,77 @@ public class MainActivity extends AppCompatActivity
                     Uri uri = data.getData();
                     Cursor cursor = getContentResolver().query(uri,null,null,null,null);
                     cursor.moveToFirst();
-                    String video_path = cursor.getString(1);
+                    final String video_path = cursor.getString(1);
                     final String video_size = cursor.getString(3);
                     String video_name = cursor.getString(2);
                     Log.i("video_path",video_path);
                     Log.i("video_size",video_size);
                     Log.i("video_name",video_name);
-//                    AlertDialog.Builder videoBuilder = new AlertDialog.Builder(this);
-//                    videoBuilder.setTitle("上传视频");
-//                    videoBuilder
 
-                    showProcessDialog();
-                    RetrofitCallbcak<String> callbcak = new RetrofitCallbcak<String>() {
-                        @Override
-                        public void onSuccess(Call<String> call, Response<String> response) {
-                            Log.i("add video ","succeed");
-                            progressDialog.dismiss();
-                        }
+                    final EditText inputServer = new EditText(getBaseContext());
+                    //inputServer.setSelection(defaultString.length());
+                    inputServer.setText(video_name);
+                    inputServer.setMaxLines(1);
+                    inputServer.setMinLines(1);
+                    inputServer.setFocusable(true);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+                    builder.setTitle("视频标题").setIcon(
+                            R.drawable.ic_arrow_check).setView(inputServer).setNegativeButton("取消", null);
+                    builder.setPositiveButton("确认",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    final String title=inputServer.getText().toString();
+                                    showProcessDialog();
+                                    RetrofitCallbcak<String> callbcak = new RetrofitCallbcak<String>() {
+                                        @Override
+                                        public void onSuccess(Call<String> call, Response<String> response) {
+                                            Log.i("add video ","succeed");
+                                            progressDialog.dismiss();
+                                        }
 
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
-                            Log.i("add video ","fail");
-                            progressDialog.dismiss();
-                            t.printStackTrace();
+                                        @Override
+                                        public void onFailure(Call<String> call, Throwable t) {
+                                            Log.i("add video ","fail");
+                                            progressDialog.dismiss();
+                                            t.printStackTrace();
 
-                        }
+                                        }
 
-                        @Override
-                        public void onLoading(final long total, final long process) {
-                            super.onLoading(total, process);
-                            runOnUiThread(new Runnable(){
+                                        @Override
+                                        public void onLoading(final long total, final long process) {
+                                            super.onLoading(total, process);
+                                            runOnUiThread(new Runnable(){
 
-                                @Override
-                                public void run() {
-                                    int currentProcess = (int) (process*1.0f/Integer.parseInt(video_size)*100.0f);
-                                    Log.i("current progress total",currentProcess+" "+total+" "+process);
-                                    progressDialog.setProgress(currentProcess);
+                                                @Override
+                                                public void run() {
+                                                    int currentProcess = (int) (process*1.0f/Integer.parseInt(video_size)*100.0f);
+                                                    Log.i("current progress total",currentProcess+" "+total+" "+process);
+                                                    progressDialog.setProgress(currentProcess);
+                                                }
+                                            });
+                                        }
+                                    };
+                                    File file = new File(video_path);
+                                    RequestBody requestBody = RequestBody.create(MediaType.parse("application/otcet-stream"),file);
+
+                                    FileRequestBody<User> body = new FileRequestBody(requestBody,callbcak);
+                                    String filetype = file.getName().substring(file.getName().indexOf('.'),file.getName().length());
+                                    MultipartBody.Part part = MultipartBody.Part.createFormData(title+filetype,title+filetype,body);
+                                    Log.i("file name",file.getName());
+
+                                    Retrofit retrofit = new Retrofit.Builder()
+                                            .baseUrl(getResources().getString(R.string.baseURL))
+                                            .addConverterFactory(GsonConverterFactory.create())
+                                            .addConverterFactory(ScalarsConverterFactory.create())
+                                            .build();
+                                    AddVideoServes addVideoServes = retrofit.create(AddVideoServes.class);
+                                    Log.i("user id",user.getId()+"");
+                                    Call<String> call = addVideoServes.upload(user.getId()+"",part);
+                                    call.enqueue(callbcak);
+
                                 }
                             });
-                        }
-                    };
-                    File file = new File(video_path);
-                    RequestBody requestBody = RequestBody.create(MediaType.parse("application/otcet-stream"),file);
-
-                    FileRequestBody<User> body = new FileRequestBody(requestBody,callbcak);
-                    MultipartBody.Part part = MultipartBody.Part.createFormData(file.getName(),file.getName(),body);
-                    Log.i("file name",file.getName());
-
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(getResources().getString(R.string.baseURL))
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .build();
-                    AddVideoServes addVideoServes = retrofit.create(AddVideoServes.class);
-                    Log.i("user id",user.getId()+"");
-                    Call<String> call = addVideoServes.upload(user.getId()+"",part);
-                    call.enqueue(callbcak);
+                    builder.show();
 
                     break;
             }
@@ -548,10 +547,6 @@ public class MainActivity extends AppCompatActivity
         // 注意这里得到的图片已经是圆形图片了
         // bitmap是没有做个圆形处理的，但已经被裁剪了
 
-//        String imagePath = ImageUtils.savePhoto(bitmap, Environment
-//                .getExternalStorageDirectory().getAbsolutePath(), String
-//                .valueOf(System.currentTimeMillis()));
-//        Log.e("imagePath", imagePath+"");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         //iv_photo.setDrawingCacheEnabled(true);
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
@@ -577,11 +572,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Log.i("uploader iamge:=","fail");
-
             }
         });
-
-
 
     }
 }

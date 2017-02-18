@@ -16,10 +16,12 @@ import android.widget.TextView;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.adapter.ExpandableContactAdapter;
+import com.example.a60440.collegestudent.bean.Result;
 import com.example.a60440.collegestudent.bean.Roster;
 import com.example.a60440.collegestudent.bean.RosterGroup;
 import com.example.a60440.collegestudent.bean.UserInfo;
 import com.example.a60440.collegestudent.configuration.Constant;
+import com.example.a60440.collegestudent.requestServes.ContantServes;
 import com.example.a60440.collegestudent.view.AnimatedExpandableListView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -28,6 +30,12 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 
 public class ContactActivity extends AppCompatActivity {
@@ -95,6 +103,26 @@ public class ContactActivity extends AppCompatActivity {
 //
 //                    }
 //                });
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.baseURL))
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ContantServes contantServes = retrofit.create(ContantServes.class);
+        Call<Result> call = contantServes.getRequestCount(UserInfo.uid);
+        call.enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                tvNumber.setText(response.body().getCount()+"");
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+
+            }
+        });
+
+
 //        RetrofitUtils.getService().getContacts(UserInfo.uid)
 //                .subscribeOn(Schedulers.newThread())
 //                .observeOn(AndroidSchedulers.mainThread())
@@ -119,6 +147,38 @@ public class ContactActivity extends AppCompatActivity {
 //                        }).setNegativeButton("取消", null).show();
 //                    }
 //                });
+
+        Retrofit retrofit1 = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.baseURL))
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ContantServes contantServes1 = retrofit1.create(ContantServes.class);
+        Call<ArrayList<RosterGroup>> call1 = contantServes1.getContacts(UserInfo.uid);
+        call1.enqueue(new Callback<ArrayList<RosterGroup>>() {
+            @Override
+            public void onResponse(Call<ArrayList<RosterGroup>> call, Response<ArrayList<RosterGroup>> response) {
+                mAdapter.setData(response.body());
+                UserInfo.groupNames.clear();
+                for(RosterGroup group:response.body()){
+                    UserInfo.groupNames.add(group.getName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<RosterGroup>> call, Throwable t) {
+                new AlertDialog.Builder(ContactActivity.this).setMessage("获取数据异常:" + t).setPositiveButton("重试", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                initData();
+                            }
+                        }).setNegativeButton("取消", null).show();
+            }
+        });
+
+
+
     }
 
     @Override
