@@ -102,10 +102,13 @@
 
 
     <!-- 全圆角-->
-    <LinearLayout style="@style/wrap_layout">
-        <LinearLayout style="@style/single_layout">
-            <TextView style="@style/usertext" android:text="其它设置"/>
-            <ImageView style="@style/img_arrow"/>
+    <LinearLayout style="@style/wrap_layout"
+        android:id="@+id/ll_quit"
+        >
+        <LinearLayout style="@style/single_layout"
+            >
+            <TextView style="@style/usertext"
+                android:text="退出当前账号"/>
         </LinearLayout>
 
     </LinearLayout>

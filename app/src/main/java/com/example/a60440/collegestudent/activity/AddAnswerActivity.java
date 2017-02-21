@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.bean.Answer;
@@ -66,6 +67,7 @@ public class AddAnswerActivity extends Activity {
            @Override
            public void onResponse(Call<String> call, Response<String> response) {
                Log.i("add question"," succeed");
+               Toast.makeText(AddAnswerActivity.this, "添加问题成功", Toast.LENGTH_SHORT).show();
            }
 
            @Override

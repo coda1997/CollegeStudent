@@ -1,6 +1,7 @@
 package com.example.a60440.collegestudent.fragment.settingFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.activity.LoginActivity;
 import com.example.a60440.collegestudent.activity.SettingActivity;
 import com.example.a60440.collegestudent.bean.User;
 import com.example.a60440.collegestudent.configuration.BaseConfiguration;
@@ -73,6 +75,11 @@ public class SettingPeronFileFragment extends Fragment {
     TextView majorTextView;
     @Bind(R.id.id_setting_textview_school)
     TextView schoolTextView;
+    @OnClick(R.id.ll_quit)
+    void setLogin(){
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+    }
 
     private User user;
 

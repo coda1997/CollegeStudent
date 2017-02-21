@@ -54,6 +54,7 @@ public class VedioManegerActivity extends Activity implements MyItemClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vedio_maneger_full);
         ButterKnife.bind(this);
+
         initData();
     }
 
@@ -73,7 +74,7 @@ public class VedioManegerActivity extends Activity implements MyItemClickListene
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         VideoServes videoServes = retrofit.create(VideoServes.class);
-        Call<List<VideoInfo>> call = videoServes.getMyVideo(UserUtils.getParam(getApplicationContext()).getId()+"");
+        Call<List<VideoInfo>> call = videoServes.getString(UserUtils.getParam(getApplicationContext()).getId());
         call.enqueue(new Callback<List<VideoInfo>>() {
             @Override
             public void onResponse(Call<List<VideoInfo>> call, Response<List<VideoInfo>> response) {
@@ -83,10 +84,10 @@ public class VedioManegerActivity extends Activity implements MyItemClickListene
                 for(VideoInfo videoInfo:response.body()){
                     videos.add(videoInfo);
                 }
-                videoManagementAdapter = new VideoManagementAdapter(videos,recyclerView.getContext());
-                recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-                videoManagementAdapter.setOnItemClickListener(VedioManegerActivity.this);
-                recyclerView.setAdapter(videoManagementAdapter);
+//                videoManagementAdapter = new VideoManagementAdapter(videos,recyclerView.getContext());
+//                recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+//                videoManagementAdapter.setOnItemClickListener(VedioManegerActivity.this);
+//                recyclerView.setAdapter(videoManagementAdapter);
             }
 
             @Override

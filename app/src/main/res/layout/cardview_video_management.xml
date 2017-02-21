@@ -40,13 +40,19 @@
                 >
                 <TextView
                     android:id="@+id/base_swipe_item_title4"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="21dp"
                     android:layout_weight="1"
                     android:text="中国历史"
                     android:textColor="@color/black"
                     android:layout_gravity="center_horizontal"
                     android:textSize="18sp"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_delete_video"
+                    android:src="@drawable/ic_delete_black_24dp"
                     />
 
             </LinearLayout>
@@ -70,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/id_vedio_management_size"
                     android:text="大小: 100M"
+                    android:textSize="10sp"
                     android:paddingRight="5dp"
                     android:paddingLeft="10dp"
                     />

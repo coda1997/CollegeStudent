@@ -32,6 +32,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.bean.Result;
@@ -93,14 +94,15 @@ public class MainActivity extends AppCompatActivity
     private ImageView questionImageView;
     private ImageView friendImageView;
     private ImageView videoImageView;
+    private TextView nicknameTextView;
+    private TextView signatureTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
-        Log.i("uid = ", UserInfo.uid);
         user = UserUtils.getParam(getApplicationContext());
-        Log.i("user ",user.toString());
+        initView();
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -124,6 +126,10 @@ public class MainActivity extends AppCompatActivity
                 showChoosePicDialog();
             }
         });
+        nicknameTextView = (TextView)view.findViewById(R.id.id_tv_main_nickname);
+        nicknameTextView.setText(user.getNickname());
+        signatureTextView = (TextView)view.findViewById(R.id.id_main_signature);
+        signatureTextView.setText(user.getSignature());
 
     }
     @Override
@@ -160,11 +166,13 @@ public class MainActivity extends AppCompatActivity
             startActivityForResult(wrapperIntent,TAKE_VIDEO);
 
             return true;
-        }else if(id==R.id.id_video_management){
+        }
+        else if(id==R.id.id_video_management){
             Intent intent = new Intent(this,VedioManegerActivity.class);
             startActivity(intent);
             return true;
-        }else if(id == R.id.action_my_contact){
+        }
+        else if(id == R.id.action_my_contact){
             Intent intent = new Intent(this,ContactActivity.class);
             startActivity(intent);
             return true;
@@ -181,11 +189,15 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             startSettingActivity();
+
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
             Intent intent = new Intent(MainActivity.this,VedioManegerActivity.class);
             startActivity(intent);
+
         } else if (id == R.id.nav_slideshow) {
+            Intent intent= new Intent(this,MyAnswersActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_manage) {
             Intent intent = new Intent(MainActivity.this,SettingActivity.class);
@@ -472,21 +484,22 @@ public class MainActivity extends AppCompatActivity
                                     FileRequestBody<User> body = new FileRequestBody(requestBody,callbcak);
                                     String filetype = file.getName().substring(file.getName().indexOf('.'),file.getName().length());
                                     MultipartBody.Part part = MultipartBody.Part.createFormData(title+filetype,title+filetype,body);
-                                    Log.i("file name",file.getName());
+                                    Log.i("file name",title+filetype);
 
-                                    Retrofit retrofit = new Retrofit.Builder()
-                                            .baseUrl(getResources().getString(R.string.baseURL))
-                                            .addConverterFactory(GsonConverterFactory.create())
-                                            .addConverterFactory(ScalarsConverterFactory.create())
-                                            .build();
-                                    AddVideoServes addVideoServes = retrofit.create(AddVideoServes.class);
-                                    Log.i("user id",user.getId()+"");
-                                    Call<String> call = addVideoServes.upload(user.getId()+"",part);
-                                    call.enqueue(callbcak);
+//                                    Retrofit retrofit = new Retrofit.Builder()
+//                                            .baseUrl(getResources().getString(R.string.baseURL))
+//                                            .addConverterFactory(GsonConverterFactory.create())
+//                                            .addConverterFactory(ScalarsConverterFactory.create())
+//                                            .build();
+//                                    AddVideoServes addVideoServes = retrofit.create(AddVideoServes.class);
+//                                    Log.i("user id",user.getId()+"");
+//                                    Call<String> call = addVideoServes.upload(user.getId()+"",part);
+//                                    call.enqueue(callbcak);
 
                                 }
                             });
                     builder.show();
+
 
                     break;
             }

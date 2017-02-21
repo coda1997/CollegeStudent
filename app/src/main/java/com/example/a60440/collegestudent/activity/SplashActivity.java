@@ -184,8 +184,13 @@ public class SplashActivity extends AppCompatActivity {
                     UserInfo.imageURL = user1.getImageURL();
                     UserInfo.nickname = user1.getNickname();
                     UserInfo.id = user1.getId();
-                    UserInfo.uid = "s" + UserInfo.id;
+                    UserInfo.uid = "c" + UserInfo.id;
                     UserInfo.token = user1.getToken();
+                    if(UserInfo.token==null){
+                        Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                        return;
+                    }
                     UserInfo.signiture = user1.getSignature();
                     RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
                         @Override

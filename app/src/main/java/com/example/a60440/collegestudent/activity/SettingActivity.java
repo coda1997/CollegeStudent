@@ -56,6 +56,7 @@ public class SettingActivity extends AppCompatActivity{
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.setting_container);
         toolbar = (Toolbar) findViewById(R.id.toolbar_setting);
+        toolbar.setTitle("设置中心");
         setSupportActionBar(toolbar);
 
         InitView();

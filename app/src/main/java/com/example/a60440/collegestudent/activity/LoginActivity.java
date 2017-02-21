@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -49,7 +50,7 @@ public class LoginActivity extends Activity {
         InitLogin(userName,userpwd);
     }
 
-    @OnClick(R.id.button3)
+    @OnClick(R.id.tv_register)
     void registerOnClick() {
         Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
         startActivity(intent);
@@ -59,12 +60,17 @@ public class LoginActivity extends Activity {
     EditText loginName;
     @Bind(R.id.editText)
     EditText loginpwd;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main);
+
         ButterKnife.bind(this);
+
+        toolbar.setTitle("账号登录");
     }
 
     private void InitLogin(final String username, final String userpwd) {
@@ -97,9 +103,7 @@ public class LoginActivity extends Activity {
                     UserUtils.setParam(getApplicationContext(),user);
                     connect(user.getToken());
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("User", user);
-//                    intent.putExtras(bundle);
+
                     startActivity(intent);
                 } else {
                     //something to do
@@ -162,8 +166,6 @@ public class LoginActivity extends Activity {
                 return false;
             }
         });
-
-
 
         RongIM.connect(token, new RongIMClient.ConnectCallback() {
 
