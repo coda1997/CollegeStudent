@@ -133,7 +133,7 @@ public class ExpandableContactAdapter extends AnimatedExpandableListView.Animate
         viewHolder.name.setText(roster.getRemark());
         viewHolder.signiture.setText(roster.getSignature());
         Glide.with(UiUtils.getContext())
-                .load(BaseConfiguration.URI_CONVERSATION_PRIVATE + roster.getImageURL())
+                .load(Constant.SERVER_URL + roster.getImageURL())
                 .dontAnimate()
                 .transform(new GlideRoundTransform(UiUtils.getContext(), Constant.IMAGE_RADIUS))
                 .placeholder(R.drawable.ic_account_circle_blue_600_24dp)

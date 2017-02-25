@@ -5,6 +5,7 @@ import com.example.a60440.collegestudent.bean.FriendRequest;
 import com.example.a60440.collegestudent.bean.InfoDetail;
 import com.example.a60440.collegestudent.bean.Result;
 import com.example.a60440.collegestudent.bean.RosterGroup;
+import com.example.a60440.collegestudent.bean.Student;
 import com.example.a60440.collegestudent.layoutmanager.QueryItem;
 
 import java.util.ArrayList;
@@ -45,5 +46,15 @@ public interface ContantServes {
 
     @GET("GetDetailedInfoServlet")
     Call<InfoDetail> getDetailedInfo(@Query("uid") String uid);
+
+    @POST("servletc/LoadUnpairStudentServlet")
+    Call<ArrayList<Student>> getUnpairStudent(@Query("start") int start);
+
+    @POST("servletc/AddPairSudentServlet")
+    @FormUrlEncoded
+    Call<String> addPairStudent(@Field("studentId") String sid,@Field("collegeStudentId") String cid);
+
+    @POST("servletc/GetPairStudentInfoServlet")
+    Call<ArrayList<Student>> getStudentInfo(@Query("collegeStudentId") String cid);
 
 }

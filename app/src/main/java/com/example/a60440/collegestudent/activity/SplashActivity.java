@@ -29,7 +29,10 @@ import com.example.a60440.collegestudent.requestServes.RequestServes;
 import com.example.a60440.collegestudent.utils.UserUtils;
 import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -97,6 +100,7 @@ public class SplashActivity extends AppCompatActivity {
             sendRequest();
         else requestEnd = true;
         startAnimation();
+        initDB();
     }
 
     private void sendRequest() {
@@ -408,6 +412,34 @@ public class SplashActivity extends AppCompatActivity {
         }
         return null;
     }
+    private void initDB() {
+        InputStream stream = null;
+        FileOutputStream outputStream = null;
+        try {
+            String fileName = "region.db";
+            File file = new File(getFilesDir(), fileName);
+            if (file.exists())
+                return;
+            stream = getAssets().open(fileName);
+            outputStream = new FileOutputStream(file);
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = stream.read(buffer)) != -1)
+                outputStream.write(buffer, 0, len);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stream != null)
+                    stream.close();
+                if (outputStream != null)
+                    outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
+        }
+        Toast.makeText(this, "拷贝完成", Toast.LENGTH_SHORT).show();
+    }
 
 }

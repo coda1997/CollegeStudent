@@ -141,7 +141,11 @@ public class MyAnswersActivity extends AppCompatActivity {
         call.enqueue(new Callback<ArrayList<Answer>>() {
             @Override
             public void onResponse(Call<ArrayList<Answer>> call, Response<ArrayList<Answer>> response) {
-                mAdapter.setData(response.body());
+                if(response.body()!=null){
+                    mAdapter.setData(response.body());
+                }else{
+                    Toast.makeText(MyAnswersActivity.this, "网络异常，请重试", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

@@ -15,6 +15,7 @@ public class App extends MultiDexApplication {
     private static Context context;
     private static Handler handler;
     private static int mainThreadId;
+    private static String packagename;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -22,6 +23,7 @@ public class App extends MultiDexApplication {
         context=getApplicationContext();
         handler = new Handler(getMainLooper());
         mainThreadId = Process.myTid();
+        packagename=this.getPackageName();
     }
     public static Context getContext(){
         return context;
@@ -31,5 +33,8 @@ public class App extends MultiDexApplication {
     }
     public static int getMainThreadId(){
         return mainThreadId;
+    }
+    public static String getpackageName(){
+        return packagename;
     }
 }

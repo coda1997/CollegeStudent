@@ -11,11 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a60440.collegestudent.R;
+import com.example.a60440.collegestudent.activity.MainActivity;
 import com.example.a60440.collegestudent.listener.MyItemClickListener;
 import com.example.a60440.collegestudent.bean.VideoInfo;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 import wseemann.media.FFmpegMediaMetadataRetriever;
@@ -26,7 +30,7 @@ import wseemann.media.FFmpegMediaMetadataRetriever;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.NormalHolder> {
     private ArrayList<VideoInfo> videos;
-    private Context context;
+    private Context context=null;
     private MyItemClickListener myItemClickListener;
     private CardView cardView;
 
@@ -41,18 +45,25 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Norm
         if(holder instanceof NormalHolder){
 
             NormalHolder normalHolder = (NormalHolder)holder;
-            normalHolder.textView.setText(videos.get(position).videoTitle);
-           // new NormalImageLoader().getPicture(videos.get(position).videoImage,normalHolder.imageView);
-            Log.i("video url is",videos.get(position).videoUrl);
-            FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
-            mmr.setDataSource(context.getResources().getString(R.string.baseURL)+videos.get(position).videoUrl);
-            mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM);
-            mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST);
-            Bitmap bitmap = mmr.getFrameAtTime(10000,FFmpegMediaMetadataRetriever.OPTION_CLOSEST);
-            normalHolder.imageView.setImageBitmap(bitmap);
-            mmr.release();
-//            normalHolder.imageView
-
+            VideoInfo videoInfo = videos.get(position);
+            try {
+                final String title = URLDecoder.decode(videoInfo.videoTitle,"utf-8");
+                normalHolder.textView.setText(title);
+                // new NormalImageLoader().getPicture(videos.get(position).videoImage,normalHolder.imageView);
+                Log.i("video url is", videoInfo.videoUrl);
+                FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
+                String url = context.getResources().getString(R.string.baseURL)+ videoInfo.videoUrl;
+                Log.i("video aburl is",url);
+                mmr.setDataSource(url);
+                mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM);
+                mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST);
+                Bitmap bitmap = mmr.getFrameAtTime(10000,FFmpegMediaMetadataRetriever.OPTION_CLOSEST);
+                normalHolder.imageView.setImageBitmap(bitmap);
+                mmr.release();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                Toast.makeText(context, "网络异常，请重试", Toast.LENGTH_SHORT).show();
+            }
 
         }
 

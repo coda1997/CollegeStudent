@@ -60,19 +60,19 @@ public class StudentInfoAdapter extends RecyclerView.Adapter{
         TextView studentname;
         TextView studentInfo;
 
-
-
         public StudentHolder(View itemView,MyItemClickListener listener) {
             super(itemView);
             studentname=(TextView)itemView.findViewById(R.id.tv_student_name);
             studentInfo=(TextView)itemView.findViewById(R.id.tv_student_info);
             imageView=(ImageView)itemView.findViewById(R.id.iv_student_image);
-
+            itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-
+            if(myItemClickListener!=null){
+                myItemClickListener.onItemClick(v,getPosition());
+            }
         }
     }
 }

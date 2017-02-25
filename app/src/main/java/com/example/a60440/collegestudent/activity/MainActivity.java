@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.bean.Result;
@@ -55,6 +56,8 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.model.Conversation;
@@ -192,7 +195,9 @@ public class MainActivity extends AppCompatActivity
 
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            Intent intent = new Intent(MainActivity.this,VedioManegerActivity.class);
+//            Intent intent = new Intent(MainActivity.this,VedioManegerActivity.class);
+//            startActivity(intent);
+            Intent intent = new Intent(this,PairStudentActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {
@@ -438,63 +443,71 @@ public class MainActivity extends AppCompatActivity
                     final EditText inputServer = new EditText(getBaseContext());
                     //inputServer.setSelection(defaultString.length());
                     inputServer.setText(video_name);
-                    inputServer.setMaxLines(1);
+                    inputServer.setMaxLines(3);
                     inputServer.setMinLines(1);
                     inputServer.setFocusable(true);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("视频标题").setIcon(
                             R.drawable.ic_arrow_check).setView(inputServer).setNegativeButton("取消", null);
                     builder.setPositiveButton("确认",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     final String title=inputServer.getText().toString();
-                                    showProcessDialog();
-                                    RetrofitCallbcak<String> callbcak = new RetrofitCallbcak<String>() {
-                                        @Override
-                                        public void onSuccess(Call<String> call, Response<String> response) {
-                                            Log.i("add video ","succeed");
-                                            progressDialog.dismiss();
-                                        }
+                                    try {
+                                        final String encodeTitle = URLEncoder.encode(title,"utf-8");
+                                        showProcessDialog();
+                                        RetrofitCallbcak<String> callbcak = new RetrofitCallbcak<String>() {
+                                            @Override
+                                            public void onSuccess(Call<String> call, Response<String> response) {
+                                                Log.i("add video ","succeed");
+                                                progressDialog.dismiss();
+                                            }
 
-                                        @Override
-                                        public void onFailure(Call<String> call, Throwable t) {
-                                            Log.i("add video ","fail");
-                                            progressDialog.dismiss();
-                                            t.printStackTrace();
+                                            @Override
+                                            public void onFailure(Call<String> call, Throwable t) {
+                                                Log.i("add video ","fail");
+                                                progressDialog.dismiss();
+                                                t.printStackTrace();
 
-                                        }
+                                            }
 
-                                        @Override
-                                        public void onLoading(final long total, final long process) {
-                                            super.onLoading(total, process);
-                                            runOnUiThread(new Runnable(){
+                                            @Override
+                                            public void onLoading(final long total, final long process) {
+                                                super.onLoading(total, process);
+                                                runOnUiThread(new Runnable(){
 
-                                                @Override
-                                                public void run() {
-                                                    int currentProcess = (int) (process*1.0f/Integer.parseInt(video_size)*100.0f);
-                                                    Log.i("current progress total",currentProcess+" "+total+" "+process);
-                                                    progressDialog.setProgress(currentProcess);
-                                                }
-                                            });
-                                        }
-                                    };
-                                    File file = new File(video_path);
-                                    RequestBody requestBody = RequestBody.create(MediaType.parse("application/otcet-stream"),file);
+                                                    @Override
+                                                    public void run() {
+                                                        int currentProcess = (int) (process*1.0f/Integer.parseInt(video_size)*100.0f);
+                                                        Log.i("current progress total",currentProcess+" "+total+" "+process);
+                                                        progressDialog.setProgress(currentProcess);
+                                                    }
+                                                });
+                                            }
+                                        };
+                                        File file = new File(video_path);
+                                        RequestBody requestBody = RequestBody.create(MediaType.parse("application/otcet-stream"),file);
 
-                                    FileRequestBody<User> body = new FileRequestBody(requestBody,callbcak);
-                                    String filetype = file.getName().substring(file.getName().indexOf('.'),file.getName().length());
-                                    MultipartBody.Part part = MultipartBody.Part.createFormData(title+filetype,title+filetype,body);
-                                    Log.i("file name",title+filetype);
+                                        FileRequestBody<User> body = new FileRequestBody(requestBody,callbcak);
+                                        String filetype = file.getName().substring(file.getName().indexOf('.'),file.getName().length());
+                                        MultipartBody.Part part = MultipartBody.Part.createFormData(encodeTitle+filetype,encodeTitle+filetype,body);
+                                        Log.i("file name",title+filetype);
 
-//                                    Retrofit retrofit = new Retrofit.Builder()
-//                                            .baseUrl(getResources().getString(R.string.baseURL))
-//                                            .addConverterFactory(GsonConverterFactory.create())
-//                                            .addConverterFactory(ScalarsConverterFactory.create())
-//                                            .build();
-//                                    AddVideoServes addVideoServes = retrofit.create(AddVideoServes.class);
-//                                    Log.i("user id",user.getId()+"");
-//                                    Call<String> call = addVideoServes.upload(user.getId()+"",part);
-//                                    call.enqueue(callbcak);
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                                .baseUrl(getResources().getString(R.string.baseURL))
+                                                .addConverterFactory(GsonConverterFactory.create())
+                                                .addConverterFactory(ScalarsConverterFactory.create())
+                                                .build();
+                                        AddVideoServes addVideoServes = retrofit.create(AddVideoServes.class);
+                                        Log.i("user id",user.getId()+"");
+                                        Call<String> call = addVideoServes.upload(user.getId()+"",part);
+                                        call.enqueue(callbcak);
+
+                                    } catch (UnsupportedEncodingException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(MainActivity.this, "标题格式错误", Toast.LENGTH_SHORT).show();
+
+                                    }
 
                                 }
                             });

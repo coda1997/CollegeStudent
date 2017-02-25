@@ -13,4 +13,5 @@ public class TimeUtils {
         return simpleDateFormat.format(date);
 
     }
+    private String[] weekinfo={"周一","周二","周三",};
 }

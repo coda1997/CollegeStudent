@@ -18,14 +18,28 @@
 
     </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-    <android.support.v7.widget.RecyclerView
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rv_student"
-        >
+        app:tr_wave_height="180dp"
+        app:tr_head_height="100dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rv_student"
+            >
 
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
+
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+
 
 
 </LinearLayout>

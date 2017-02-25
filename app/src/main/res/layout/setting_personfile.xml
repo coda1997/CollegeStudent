@@ -64,15 +64,44 @@
         </LinearLayout>
         <View style="@style/bg_line"/>
         <!-- 无圆角-->
-        <LinearLayout style="@style/mid_layout" android:id="@+id/setting_region">
+        <LinearLayout style="@style/mid_layout" android:id="@+id/setting_region" android:orientation="horizontal">
             <TextView style="@style/usertext" android:text="居住地"
                 />
 
             <!--<ImageView style="@style/img_arrow"/>-->
-            <TextView style="@style/usertext" android:text="湖北 武汉"
-                android:id="@+id/id_setting_textview_region"
-                android:gravity="center"/>
-            <ImageView style="@style/img_arrow"/>
+            <!--<TextView style="@style/usertext" android:text="湖北 武汉"-->
+                <!--android:id="@+id/id_setting_textview_region"-->
+                <!--android:gravity="center"/>-->
+            <!--<ImageView style="@style/img_arrow"/>-->
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+
+                >
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/sp_province"
+                    android:layout_gravity="right"
+                    android:layout_weight="2"
+                    ></Spinner>
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/sp_city"
+                    android:layout_weight="2"
+
+                    ></Spinner>
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/sp_area"
+                    android:layout_weight="3"
+
+
+                    ></Spinner>
+            </LinearLayout>
+
 
         </LinearLayout>
         <View style="@style/bg_line"/>

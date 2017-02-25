@@ -51,6 +51,8 @@ dependencies {
     compile 'com.ms-square:expandableTextView:0.1.4'
     compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14'
     compile 'com.lcodecorex:tkrefreshlayout:1.0.5'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+
     compile project(':IMKit')
     compile project(':IMLib')
 }
