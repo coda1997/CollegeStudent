@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.bean.Info;
@@ -107,6 +108,7 @@ public class LoginActivity extends Activity {
                     startActivity(intent);
                 } else {
                     //something to do
+                    Toast.makeText(LoginActivity.this, "网络异常，请重试", Toast.LENGTH_SHORT).show();
                 }
             }
         });

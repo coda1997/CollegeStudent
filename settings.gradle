@@ -1,1 +1,1 @@
-include ':app', ':CallLib', ':IMKit', ':IMLib', ':CallKit'
+include ':app', ':CallLib', ':IMKit', ':IMLib', ':CallKit', ':InitActivity'

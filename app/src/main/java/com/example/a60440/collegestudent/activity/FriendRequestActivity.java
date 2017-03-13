@@ -21,6 +21,7 @@ import com.example.a60440.collegestudent.adapter.RecyclerFriendRequestAdapter;
 import com.example.a60440.collegestudent.bean.FriendRequest;
 import com.example.a60440.collegestudent.bean.Result;
 import com.example.a60440.collegestudent.bean.UserInfo;
+import com.example.a60440.collegestudent.configuration.Constant;
 import com.example.a60440.collegestudent.requestServes.ContantServes;
 
 import java.util.ArrayList;
@@ -79,12 +80,16 @@ public class FriendRequestActivity extends AppCompatActivity {
         call.enqueue(new Callback<ArrayList<FriendRequest>>() {
             @Override
             public void onResponse(Call<ArrayList<FriendRequest>> call, Response<ArrayList<FriendRequest>> response) {
-                mAdapter.setData(response.body());
+                if(response.body()!=null){
+                    mAdapter.setData(response.body());
+                }else{
+                    Toast.makeText(FriendRequestActivity.this, Constant.INTERNET_FAIL, Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onFailure(Call<ArrayList<FriendRequest>> call, Throwable t) {
-
+                Toast.makeText(FriendRequestActivity.this, Constant.INTERNET_FAIL+t, Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -92,8 +92,11 @@ public class PersonalInfoActivity extends AppCompatActivity {
         call.enqueue(new Callback<InfoDetail>() {
             @Override
             public void onResponse(Call<InfoDetail> call, Response<InfoDetail> response) {
-                populateInfo(response.body());
-
+                if(response.body()!=null){
+                    populateInfo(response.body());
+                }else{
+                    Toast.makeText(PersonalInfoActivity.this, "网路异常，请重试", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

@@ -47,7 +47,7 @@
             ></activity>
         <activity android:name=".activity.VedioManegerActivity"
             android:label="大学生端"
-
+            android:theme="@style/AppTheme.NoActionBar"
             ></activity>
         <activity android:name=".activity.AddAnswerActivity"></activity>
         <activity android:name=".activity.FriendMainActivity"></activity>
@@ -104,9 +104,13 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+        <activity android:name=".activity.StudentInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".activity.UnpairStudentActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-
+        <activity android:name=".activity.ChangePwdActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
         <provider
        android:authorities="com.example.a60440.collegestudent.FileProvider"
        android:exported="false"

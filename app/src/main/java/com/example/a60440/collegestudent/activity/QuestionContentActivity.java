@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a60440.collegestudent.R;
 import com.example.a60440.collegestudent.adapter.AnswerAdapter;
@@ -85,12 +86,17 @@ public class QuestionContentActivity extends Activity implements MyItemClickList
             public void onResponse(Call<ArrayList<Answer>> call, Response<ArrayList<Answer>> response) {
                 answers = response.body();
                 Log.i("answer load:",answers.toString());
-                if(answers==null)
-                    Log.i("answer","fail");
-                answerAdapter = new AnswerAdapter(answers,recyclerView.getContext());
-                recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-                answerAdapter.setOnItemClickListener(QuestionContentActivity.this);
-                recyclerView.setAdapter(answerAdapter);
+                if(answers==null){
+                    Toast.makeText(QuestionContentActivity.this, "网络异常请重试", Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+
+                    answerAdapter = new AnswerAdapter(answers,recyclerView.getContext());
+                    recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+                    answerAdapter.setOnItemClickListener(QuestionContentActivity.this);
+                    answerAdapter.getActivity(QuestionContentActivity.this);
+                    recyclerView.setAdapter(answerAdapter);
+                }
             }
 
             @Override

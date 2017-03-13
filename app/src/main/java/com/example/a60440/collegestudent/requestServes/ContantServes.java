@@ -50,7 +50,7 @@ public interface ContantServes {
     @POST("servletc/LoadUnpairStudentServlet")
     Call<ArrayList<Student>> getUnpairStudent(@Query("start") int start);
 
-    @POST("servletc/AddPairSudentServlet")
+    @POST("servletc/AddPairStudentServlet")
     @FormUrlEncoded
     Call<String> addPairStudent(@Field("studentId") String sid,@Field("collegeStudentId") String cid);
 
