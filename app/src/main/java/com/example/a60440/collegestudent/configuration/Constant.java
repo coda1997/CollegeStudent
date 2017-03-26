@@ -17,5 +17,6 @@ public interface Constant {
     int IMAGE_RADIUS = 5;
     //判断是否需要手动登录
     String KEY_NEED_LOGIN = "needlogin";
-    final String INTERNET_FAIL="网络异常，请重试";
+    String INTERNET_FAIL="网络异常，请重试";
+    String URI_CONVERSATION_GROUP = "rong://com.example.a60440.collegestudent/conversation/group?targetId=";
 }

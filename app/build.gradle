@@ -26,7 +26,12 @@ android {
             jniLibs.srcDirs=['libs']
         }
     }
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
 }
+
 
 dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -51,11 +56,21 @@ dependencies {
     compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14'
     compile 'com.lcodecorex:tkrefreshlayout:1.0.5'
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
-    compile "com.daimajia.swipelayout:library:1.2.0@aar"
-    compile "com.github.lzyzsd.randomcolor:library:1.0.0"
+    compile 'com.daimajia.swipelayout:library:1.2.0@aar'
+    compile 'com.github.lzyzsd.randomcolor:library:1.0.0'
     compile project(':IMKit')
     compile project(':IMLib')
     compile project(':InitActivity')
+    compile files('libs/MobCommons-2017.0216.1054.jar')
+    compile files('libs/MobTools-2017.0216.1054.jar')
+    compile files('libs/ShareSDK-Core-2.8.1.jar')
+    compile files('libs/ShareSDK-QQ-2.8.1.jar')
+    compile files('libs/ShareSDK-QZone-2.8.1.jar')
+    compile files('libs/ShareSDK-SinaWeibo-2.8.1.jar')
+    compile files('libs/ShareSDK-Wechat-2.8.1.jar')
+    compile files('libs/ShareSDK-Wechat-Core-2.8.1.jar')
+    compile files('libs/ShareSDK-Wechat-Favorite-2.8.1.jar')
+    compile files('libs/ShareSDK-Wechat-Moments-2.8.1.jar')
 }
 ext {
     compileSdkVersion = 23       // depending on your sdk version

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.a60440.collegestudent">
+        package="com.example.a60440.collegestudent">
 
     <application
         android:allowBackup="true"
@@ -52,7 +52,21 @@
         <activity android:name=".activity.AddAnswerActivity"></activity>
         <activity android:name=".activity.FriendMainActivity"></activity>
         <activity android:name=".activity.SignupActivity"></activity>
-        <activity android:name=".activity.QuestionContentActivity"></activity>
+        <activity android:name=".activity.QuestionContentActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            >
+            <intent-filter>
+                <data android:scheme="tencent1105989925" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+
+        </activity>
         <activity android:name=".activity.ContactActivity"
             android:theme="@style/AppTheme.NoActionBar"
             ></activity>
@@ -111,6 +125,11 @@
         <activity android:name=".activity.ChangePwdActivity"
             android:theme="@style/AppTheme.NoActionBar"
             ></activity>
+        <activity android:name=".activity.GroupsActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
+
+
         <provider
        android:authorities="com.example.a60440.collegestudent.FileProvider"
        android:exported="false"
@@ -123,10 +142,21 @@
    </provider>
 
     </application>
-<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- 在SDCard中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"  />
     <!-- 往SDCard写入数据权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"  />
+
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
 </manifest>

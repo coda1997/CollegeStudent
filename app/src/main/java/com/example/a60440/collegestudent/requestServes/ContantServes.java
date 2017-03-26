@@ -6,6 +6,7 @@ import com.example.a60440.collegestudent.bean.InfoDetail;
 import com.example.a60440.collegestudent.bean.Result;
 import com.example.a60440.collegestudent.bean.RosterGroup;
 import com.example.a60440.collegestudent.bean.Student;
+import com.example.a60440.collegestudent.entity.ChatGroup;
 import com.example.a60440.collegestudent.layoutmanager.QueryItem;
 
 import java.util.ArrayList;
@@ -56,5 +57,10 @@ public interface ContantServes {
 
     @POST("servletc/GetPairStudentInfoServlet")
     Call<ArrayList<Student>> getStudentInfo(@Query("collegeStudentId") String cid);
+
+    @GET("GetGroupsServlet")
+    Call<ArrayList<ChatGroup>> getGroups(@Query("uid") String uid);
+
+
 
 }
