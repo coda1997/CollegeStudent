@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import onekeyshare.OnekeyShare;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -76,7 +77,7 @@ public class QuestionContentActivity extends Activity implements MyItemClickList
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initShare();
+                showShare();
             }
         });
     }
@@ -102,7 +103,7 @@ public class QuestionContentActivity extends Activity implements MyItemClickList
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         // title标题，印象笔记、邮箱、信息、微信、人人网、QQ和QQ空间使用
-        oks.setTitle("标题");
+        oks.setTitle(questionInfo.getTitle());
         // titleUrl是标题的网络链接，仅在Linked-in,QQ和QQ空间使用
         oks.setTitleUrl("http://sharesdk.cn");
         // text是分享文本，所有平台都需要这个字段
