@@ -2,6 +2,7 @@ package com.example.a60440.collegestudent.requestServes;
 
 
 
+import com.example.a60440.collegestudent.bean.Course;
 import com.example.a60440.collegestudent.bean.CourseLearning;
 import com.example.a60440.collegestudent.bean.MessageRecord;
 import com.example.a60440.collegestudent.bean.TotalCourseLearning;
@@ -33,4 +34,7 @@ public interface InterfaceStudent {
     //获得消息发送总情况
     @GET("servlet/GetTotalMessageRecord")
     Call<ArrayList<TotalMessageRecord>> getTotalMessageRecord(@Query("uid") String uid);
+
+    @GET("servlet/GetStudentCourseInfo")
+    Call<ArrayList<Course>> getStudentCourse(@Query("uid") String uid);
 }

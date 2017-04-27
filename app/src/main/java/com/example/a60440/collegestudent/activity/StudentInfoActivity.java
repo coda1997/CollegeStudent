@@ -295,6 +295,7 @@ public class StudentInfoActivity extends AppCompatActivity {
         pieChartData.setValueLabelBackgroundEnabled(false);//数据背景不显示
         pieChartData.setValueLabelsTextColor(Color.BLACK);
 
+
         pieChartData.setValues(values);//填充数据
         if (isExploded) {
             pieChartData.setSlicesSpacing(1);//设置间隔为0
