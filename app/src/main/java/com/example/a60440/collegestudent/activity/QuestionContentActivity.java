@@ -50,6 +50,12 @@ public class QuestionContentActivity extends Activity implements MyItemClickList
     ImageView answer;
     @Bind(R.id.ib_share)
     ImageView share;
+    @OnClick(R.id.ib_answer)
+    void answer(){
+        Intent intent = new Intent(this,AddAnswerActivity.class);
+        intent.putExtra("iid",Integer.parseInt(questionInfo.getId()));
+        startActivity(intent);
+    }
     QuestionInfo questionInfo;
     AnswerAdapter answerAdapter;
     RecyclerView recyclerView;
