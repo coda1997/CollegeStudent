@@ -17,6 +17,7 @@ import com.example.a60440.collegestudent.bean.Info;
 import com.example.a60440.collegestudent.bean.User;
 import com.example.a60440.collegestudent.bean.UserInfo;
 import com.example.a60440.collegestudent.requestServes.RequestServes;
+import com.example.a60440.collegestudent.utils.MD5Utils;
 import com.example.a60440.collegestudent.utils.UserUtils;
 import com.google.gson.Gson;
 
@@ -48,6 +49,7 @@ public class LoginActivity extends Activity {
     void loginOnClick() {
         userName = loginName.getText().toString();
         userpwd = loginpwd.getText().toString();
+        userpwd=MD5Utils.Encode(userpwd);
         InitLogin(userName,userpwd);
     }
 
@@ -81,7 +83,7 @@ public class LoginActivity extends Activity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestServes requestServes = retorfit.create(RequestServes.class);
-        Call<String> call = requestServes.getString(username.toString(), userpwd.toString());
+        Call<String> call = requestServes.getString(username.toString(), userpwd);
         call.enqueue(new Callback<String>() {
             @Override
             public void onFailure(Call<String> call, Throwable throwable) {
@@ -99,7 +101,7 @@ public class LoginActivity extends Activity {
                     UserInfo.nickname=user.getNickname();
                     UserInfo.token = user.getToken();
                     UserInfo.uid = "c"+user.getId();
-                    UserInfo.signiture=user.getSignature();
+                    UserInfo.signature=user.getSignature();
                     storeInfo(user.getUsername(),user.getPassword());
                     UserUtils.setParam(getApplicationContext(),user);
                     connect(user.getToken());
@@ -123,15 +125,7 @@ public class LoginActivity extends Activity {
 
 
 
-    /**
-     * <p>连接服务器，在整个应用程序全局，只需要调用一次，需在 {@link #init(Context)} 之后调用。</p>
-     * <p>如果调用此接口遇到连接失败，SDK 会自动启动重连机制进行最多10次重连，分别是1, 2, 4, 8, 16, 32, 64, 128, 256, 512秒后。
-     * 在这之后如果仍没有连接成功，还会在当检测到设备网络状态变化时再次进行重连。</p>
-     *
-     * @param token    从服务端获取的用户身份令牌（Token）。
-     * @param callback 连接回调。
-     * @return RongIM  客户端核心类的实例。
-     */
+
     private void connect(String token) {
         RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
             @Override
